@@ -16,7 +16,7 @@ void apbuartSendString(struct apbuart_priv *device, char strSend[MAX_STRING]){
 
 /* Realiza um laço de repetição para envio de byte a byte */
 
-	for(cont =0 ;cont < strLen;cont++){
+	for(cont = 0 ;cont < strLen;cont++){
 
           confirm = 0;
 
@@ -44,6 +44,8 @@ void apbuartReceiveString(struct apbuart_priv *device, char strReceive[MAX_STRIN
 
 	uint32_t cont = 0, confirm, statsRegister;
     const uint32_t mask = (0b111111 << 26);
+
+    strcpy(strReceive,"");
 
 /* Dita a maneira de recebimento da string a partir da variável 'control' */
 

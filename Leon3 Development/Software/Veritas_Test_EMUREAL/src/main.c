@@ -37,9 +37,9 @@ int main(void){
 
 /* Recebimento dos dados */
 
-    apbuartReceiveString(device,strReceive,1,0x21);
+   apbuartReceiveString(device,strReceive,1,0x21);
 
-    strcpy(strSend,strReceive);
+   strcpy(strSend,strReceive);
 
 /* Transformação da massa de dados recebida */
 
@@ -51,7 +51,7 @@ int main(void){
 
 /* Reenvio da massa de dados transformada */
 
-    apbuartSendString(device, strSend);
+    apbuartSendString(device,strSend);
 
 /* Fechamento do APBUART aberta */
 
