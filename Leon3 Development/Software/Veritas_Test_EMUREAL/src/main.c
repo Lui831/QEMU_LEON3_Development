@@ -10,7 +10,6 @@ int main(void){
 /* 	Declaração das variáveis principais */
 
 	struct apbuart_priv *device;
-	uint32_t cont;
 	struct apbuart_config cfg;
 	char strSend[MAX_STRING], strReceive[MAX_STRING], strAdd[] = "Hello again!";
 
@@ -35,27 +34,19 @@ int main(void){
 
 	apbuart_config(device, &cfg);
 
-///* Recebimento dos dados */
-//
-//   apbuartReceiveString(device,strReceive,1,0x21);
-//
-     strcpy(strSend,strReceive);
-//
-///* Transformação da massa de dados recebida */
-//
-//    for(cont = 0; cont < strlen(strAdd); cont++){
-//
-//    	strSend[strlen(strReceive) + cont + 1] = strAdd[cont];
-//
-//    }
-//
-///* Reenvio da massa de dados transformada */
-//
-//    apbuartSendString(device,strSend);
-//
-///* Fechamento do APBUART aberta */
+/* Recebimento dos dados */
 
-	apbuartSendString(device,strAdd);
+   apbuartReceiveString(device,strReceive,1,0x21);
+
+/* Transformação da massa de dados recebida */
+
+    sprintf(strSend, "%s , %s", strReceive, strAdd);
+
+/* Reenvio da massa de dados transformada */
+
+    apbuartSendString(device,strSend);
+
+/* Fechamento do APBUART aberta */
 
 	apbuart_close(device);
 
