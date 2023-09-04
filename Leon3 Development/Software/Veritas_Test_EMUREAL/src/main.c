@@ -35,25 +35,27 @@ int main(void){
 
 	apbuart_config(device, &cfg);
 
-/* Recebimento dos dados */
+///* Recebimento dos dados */
+//
+//   apbuartReceiveString(device,strReceive,1,0x21);
+//
+     strcpy(strSend,strReceive);
+//
+///* Transformação da massa de dados recebida */
+//
+//    for(cont = 0; cont < strlen(strAdd); cont++){
+//
+//    	strSend[strlen(strReceive) + cont + 1] = strAdd[cont];
+//
+//    }
+//
+///* Reenvio da massa de dados transformada */
+//
+//    apbuartSendString(device,strSend);
+//
+///* Fechamento do APBUART aberta */
 
-   apbuartReceiveString(device,strReceive,1,0x21);
-
-   strcpy(strSend,strReceive);
-
-/* Transformação da massa de dados recebida */
-
-    for(cont = 0; cont < strlen(strAdd); cont++){
-
-    	strSend[strlen(strReceive) + cont + 1] = strAdd[cont];
-
-    }
-
-/* Reenvio da massa de dados transformada */
-
-    apbuartSendString(device,strSend);
-
-/* Fechamento do APBUART aberta */
+	apbuartSendString(device,strAdd);
 
 	apbuart_close(device);
 
