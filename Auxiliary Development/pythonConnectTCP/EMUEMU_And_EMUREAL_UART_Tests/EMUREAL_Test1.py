@@ -9,13 +9,14 @@ import serial.tools.list_ports
 import time
 import os
 from socket import *
+from random import *
 
 
 ##################################################################################################################################################################################
 ##################################################################################################################################################################################
 # Definição de funções úteis ao código
 
-def serialConectSerial():
+def serialConnectSerial():
 
    listStrPort = []
    i = 0
@@ -44,6 +45,8 @@ def serialConectSerial():
 
       serialComn.open()
 
+      print("Sistema conectado à porta serial '%s'. \n" % serialComn.port)
+
       return serialComn
 
    except:
@@ -60,12 +63,77 @@ def sendSerial(serialComn,string):
 
    return
 
+
 def strReceiveSerial(serialComn,stopByte,numBytes):
    # Responsável por receber uma mensagem a partir da conexão serial, retorna a string recebida.
    # Para numBytes = 0, recebimento de string é delimitado por stopByte.
    # Para numBytes = 1, recebimento de string é delimitado pelo próprio numBytes.
 
+   string = ""
 
+   if(numBytes == 0):
+      
+      byteAdd = serialComn.read().decode("utf-8")
+
+      while(byteAdd != stopByte):
+
+        string = string + byteAdd
+        byteAdd = serialComn.read().decode("utf-8")
+
+   else:
+
+      for i in range(1,numBytes):
+
+         string = string + serialComn.read().decode("utf-8")
+
+   return string
+
+
+def strDataGenerator(numData):
+   # Função destinada à geração a de uma string de letras e números aleatórios, segundo um determinado parâmetro size.
+
+   string = ""
+   characters = " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+   sizeCharacters = len(characters)
+
+   for i in range (1,numData):
+      
+      string = string + characters[randint(0,sizeCharacters - 1)]
+
+   return string
+
+
+def strCipherCaesar(string, numOffset):
+
+   characters = " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+   
+   strCipher = ""
+
+   for chr in string:
+
+      posChr = characters.find(chr)
+      posChr = (posChr + numOffset) % (len(characters) - 1)
+      strCipher = strCipher + characters[posChr]
+
+   return strCipher
+
+def bTestMaker(serialComn, numData, numOffset, stopByte, numBytes):
+   # Função responsável pela realização individual de testes, aguardando e validando segundo a cifra de César escolhida.
+   # Retorna True se o teste for validado corretamente, e retorna False se o teste falhar
+
+   strSend = strDataGenerator(numData)
+
+   sendSerial(serialComn, strSend)
+
+   strReceive = strReceiveSerial(serialComn,stopByte,numBytes)
+
+   if strReceive == strCipherCaesar(strSend, numOffset):
+
+      return True
+   
+   else:
+
+      return False
 
 
 ##################################################################################################################################################################################
@@ -73,15 +141,64 @@ def strReceiveSerial(serialComn,stopByte,numBytes):
 # Definição de variáveis e listas
 
 
-listPortAntigo = []
-listPort = []
-listStrPort = []
 numData = 0
-cond = True
+numTest = 0
+numString = 0
+okTests = 0
+failTestes = 0
 
 
 ##################################################################################################################################################################################
-# Inicialização do teste e input de informações
+# Estabelecimento de conexão serial e input de informações
 
 
-print(bConectSerial().port)
+print("Bem vindo ao Test Code do Test 1! \n")
+
+serialComn = serialConnectSerial()
+
+numTest = int(input("Digite o número de testes a serem realizados: "))
+
+numData = int(input("Digite o número de bytes a serem recebidos / enviados por teste: "))
+
+os.system("cls")
+
+print("Iniciando os testes...")
+
+for i in range(0, numTest - 1):
+
+   print("TESTE %i" % numTest)
+   
+   if bTestMaker(serialComn, numData, 25, '', 30) == True:
+
+      print("Teste falhado!")
+      okTests += 1
+
+   else:
+
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
