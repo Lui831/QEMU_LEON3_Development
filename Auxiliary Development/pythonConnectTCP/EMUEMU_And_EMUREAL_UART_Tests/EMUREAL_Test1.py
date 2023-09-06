@@ -15,7 +15,7 @@ from socket import *
 ##################################################################################################################################################################################
 # Definição de funções úteis ao código
 
-def bConectSerial():
+def serialConectSerial():
 
    listStrPort = []
    i = 0
@@ -51,6 +51,21 @@ def bConectSerial():
       print("Não foi possível conectar à porta desejada...")
 
       return False
+   
+
+def sendSerial(serialComn,string):
+   # Responsável por enviar uma string de dados pela conexão serial
+   
+   serialComn.write(string.encode())
+
+   return
+
+def strReceiveSerial(serialComn,stopByte,numBytes):
+   # Responsável por receber uma mensagem a partir da conexão serial, retorna a string recebida.
+   # Para numBytes = 0, recebimento de string é delimitado por stopByte.
+   # Para numBytes = 1, recebimento de string é delimitado pelo próprio numBytes.
+
+
 
 
 ##################################################################################################################################################################################
