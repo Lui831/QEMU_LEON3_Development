@@ -145,7 +145,7 @@ numData = 0
 numTest = 0
 numString = 0
 okTests = 0
-failTestes = 0
+failTests = 0
 
 
 ##################################################################################################################################################################################
@@ -163,19 +163,23 @@ numData = int(input("Digite o número de bytes a serem recebidos / enviados por 
 os.system("cls")
 
 print("Iniciando os testes...")
+time.sleep(1.5)
 
 for i in range(0, numTest - 1):
 
-   print("TESTE %i" % numTest)
+   print("TESTE %i" % i)
    
-   if bTestMaker(serialComn, numData, 25, '', 30) == True:
+   if bTestMaker(serialComn, numData, 25, '', 10) == True:
 
-      print("Teste falhado!")
+      print("Sucesso!\n")
       okTests += 1
 
    else:
 
-      
+      print("Falha!\n")
+      failTests += 1
+
+
 
 
 
