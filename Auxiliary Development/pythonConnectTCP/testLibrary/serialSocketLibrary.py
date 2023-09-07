@@ -4,10 +4,7 @@
 
 
 import serial
-import threading
 import serial.tools.list_ports
-import time
-import os
 from socket import *
 from random import *
 
@@ -129,8 +126,6 @@ def strReadSerial(cntrl, serialComn, stopByte, numBytes):
 
    string = ""
 
-   # Se cntrl for igual a "stopByte", então recebimento de string é delimitado pelo parâmetro stopByte
-
    if cntrl == "stopByte":
       
       byteAdd = serialComn.read().decode("utf-8")
@@ -139,8 +134,6 @@ def strReadSerial(cntrl, serialComn, stopByte, numBytes):
 
         string = string + byteAdd
         byteAdd = serialComn.read().decode("utf-8")
-
-   # Se cntrl for igual a "numBytes", então recebimento de string é delimitado pelo parâmetro numBytes
 
    elif cntrl == "numBytes":
 
@@ -151,31 +144,12 @@ def strReadSerial(cntrl, serialComn, stopByte, numBytes):
    return string
 
 
-def strReadSocket(cntrl, socket, stopByte, numBytes):
+def strReadSocket(socket):
    # Desc: Função utilizada para receber uma string por meio de uma porta TCP.
    # Return: String a ser recebida.
-   # Parameters: cntrol --> Se for igual à string "stopByte", programa limita o recebimento da string por meio de stopByte.
-   #                        Se for igual à string "numBytes", programa limita o recebimento da string por meio de numBytes.
-   #             serialComn --> Objeto da classe serial representando uma porta serial conectada.
-   #             stopByte --> Char determinante para a limitação de recebimento da string.
-   #             numBytes --> Valor inteiro determinante para a limitação de recebimento da string.
+   # Parameters: socket --> Objeto da classe socket representando uma porta TCP conectada.
 
-   string = ""
-
-   if cntrl == "stopByte":
-      
-      byteAdd = socket.recv(1024).decode("utf-8")
-
-      while(byteAdd != stopByte):
-
-        string = string + byteAdd
-        byteAdd = socket.recv(1024).decode("utf-8")
-
-   elif cntrl == "numBytes":
-
-      for i in range(1,numBytes):
-
-         string = string + socket.recv(1024).decode("utf-8")
+   string = socket.recv(1024).decode("utf-8")
 
    return string
       
