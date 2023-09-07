@@ -33,7 +33,7 @@ def strDataGenerator(numData):
    # Paramaters: numData --> Número de bytes a ser formada a string.
 
    string = ""
-   characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+   characters = " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
    sizeCharacters = len(characters)
 
    for i in range (0,numData):
