@@ -63,7 +63,9 @@ int main(void){
 	cfg3.flow = 0;
 	cfg3.mode = APBUART_MODE_NONINT; //UART_MODE_NONINT
 
-	apbuart_config(device, &cfg);
+	apbuart_config(device1, &cfg);
+	apbuart_config(device2, &cfg);
+	apbuart_config(device3, &cfg);
 
 /* Loop de recebimento pela APBUART 2, envio pela APBUART 1, recebimento e transformação pela APBUART 0 e reenvio pela APBUART 2 */
 

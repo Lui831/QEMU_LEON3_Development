@@ -62,7 +62,7 @@ def strCipherCaesar(string, numOffset):
    return strCipher
 
 
-def oSerialTestMaker(serialComn, numData, numOffset,cntrl, stopByte, numBytes):
+def oSerialTestMaker(serialComn, numData, numOffset,cntrl, stopByte):
    # Desc: Função destinada à elaboração e validação de um único teste a uma porta serial.
    # Return: Resultado do teste baseado em um dicionário testReport (constituído por strSend, strReceive e status)
    # Paramaters: serialComn --> Objeto da classe serial que contém a porta serial conectada.
@@ -82,7 +82,7 @@ def oSerialTestMaker(serialComn, numData, numOffset,cntrl, stopByte, numBytes):
 
    writeSerial(serialComn, strSend)
 
-   strReceive = strReadSerial(cntrl,serialComn,stopByte,numBytes)
+   strReceive = strReadSerial(cntrl,serialComn,stopByte,numData)
    testReport["strReceive"] = strReceive
 
    if strReceive == strCipherCaesar(strSend, numOffset):
@@ -125,4 +125,42 @@ def oSocketTestMaker(socket, numData, numOffset):
    else:
 
       return testReport
+   
+
+def oSerialSocketTestMaker(socket, serialComn, numData, numOffset, cntrl, stopByte):
+   # Desc: Função destinada à elaboração e validação de um único teste a uma porta serial e porta TCP.
+   # Return: Resultado do teste baseado em um dicionário testReport (constituído por strSend, strReceive e status)
+   # Paramaters: socket --> Objeto da classe socket que contém a porta TCP conectada.
+   #             serialComn --> Objeto da classe serial que contém a porta serial conectada.
+   #             numData --> Número de bytes a serem enviados e recebidos.
+   #             numOffset --> Offset configurado para a Cifra de César.
+   #             cntrl --> Se for igual à string "stopByte", programa limita o recebimento da string por meio de stopByte.
+   #                       Se for igual à string "numBytes", programa limita o recebimento da string por meio de numBytes.
+   #             stopByte --> Char determinante para a limitação de recebimento da string.
+
+   # OBS: esta função deve ser chamada após o programa estar conectado a uma porta serial e a um socket.
+
+   testReport = {"strSend" : "" , "strReceive" : "", "status" : False}
+
+   strSend = strDataGenerator(numData)
+   testReport["strSend"] = strSend
+
+   writeSocket(socket, strSend)
+
+   strReceive = strReadSerial("numBytes", serialComn, '', numData)
+   testReport["strReceive"] = strReceive
+
+   if strReceive == strCipherCaesar(strSend, numOffset):
+
+      testReport["status"] = True
+
+      return testReport
+   
+   else:
+
+      return testReport
+
+
+
+
 
