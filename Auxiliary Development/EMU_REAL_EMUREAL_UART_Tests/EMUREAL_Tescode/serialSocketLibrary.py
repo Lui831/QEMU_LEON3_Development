@@ -22,6 +22,7 @@ import serial
 import serial.tools.list_ports
 from socket import *
 from random import *
+import time
 
 
 
@@ -156,7 +157,7 @@ def strReadSerial(cntrl, serialComn, stopByte, numBytes):
 
    elif cntrl == "numBytes":
 
-      for i in range(1,numBytes):
+      for i in range(0,numBytes):
 
          string = string + serialComn.read().decode("utf-8")
 

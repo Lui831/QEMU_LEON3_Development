@@ -17,8 +17,9 @@ int main(void){
 
 	struct apbuart_priv *device;
 	struct apbuart_config cfg;
-	char strSend[MAX_STRING], strReceive[MAX_STRING], strAdd[] = "Hello again!";
+	char strSend[MAX_STRING], strReceive[MAX_STRING];
 	int numTest = 25, cont;
+	uint8_t buf[MAX_STRING];
 
 /* Inicialização dos drivers da APBUART e inicialização da APBUART 0 */
 
@@ -45,9 +46,9 @@ int main(void){
 
     for(cont = 0; cont < numTest; cont++){
 
-       apbuartReceiveString(device, strReceive, 0, 50);
+       apbuartReceiveString(device, strReceive, 0, 12);
 
-	   CipherCaesar(strReceive, strSend, 18);
+       strcpy(strSend, strReceive);
 
 	   apbuartSendString(device, strSend);
 
@@ -96,7 +97,6 @@ void CipherCaesar(char str[MAX_STRING], char strTransformed[MAX_STRING], int num
 */
  
     char characters[MAX_STRING] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-	char newchar;
 	int cont = 0, iChar, tIChar;
 
     for(cont = 0; cont < strlen(str); cont++){

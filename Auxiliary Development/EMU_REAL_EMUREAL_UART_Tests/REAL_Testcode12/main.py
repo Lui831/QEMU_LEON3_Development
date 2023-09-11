@@ -55,7 +55,7 @@ for cont in range(0, numTest - 1):
 
    print("TESTE %i" % cont)
    
-   testReport = oSerialTestMaker(serialComn, numData, numOffset, "numBytes", '', numData)
+   testReport = oSerialTestMaker(serialComn, numData, numOffset, "numBytes", '')
 
    if testReport["status"] == True:
 

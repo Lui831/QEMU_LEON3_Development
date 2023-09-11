@@ -82,6 +82,8 @@ def oSerialTestMaker(serialComn, numData, numOffset,cntrl, stopByte):
 
    writeSerial(serialComn, strSend)
 
+   time.sleep(1.5)
+
    strReceive = strReadSerial(cntrl,serialComn,stopByte,numData)
    testReport["strReceive"] = strReceive
 

@@ -16,7 +16,7 @@ void apbuartSendString(struct apbuart_priv *device, char strSend[MAX_STRING]){
 
 /* Realiza um laço de repetição para envio de byte a byte */
 
-	for(cont = 0 ;cont < strLen;cont++){
+	for(cont = 0;cont < strLen;cont++){
 
           confirm = 0;
 
