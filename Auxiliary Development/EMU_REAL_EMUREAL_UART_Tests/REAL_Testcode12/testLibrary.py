@@ -56,7 +56,7 @@ def strCipherCaesar(string, numOffset):
    for chr in string:
 
       posChr = characters.find(chr)
-      posChr = (posChr + numOffset) % (len(characters) - 1)
+      posChr = (posChr + numOffset) % (len(characters))
       strCipher = strCipher + characters[posChr]
 
    return strCipher
