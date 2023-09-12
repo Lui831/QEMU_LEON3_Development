@@ -18,8 +18,7 @@ int main(void){
 	struct apbuart_priv *device;
 	struct apbuart_config cfg;
 	char strSend[MAX_STRING], strReceive[MAX_STRING];
-	int numTest = 25, cont;
-	uint8_t buf[MAX_STRING];
+	int numTest = 10, cont;
 
 /* Inicialização dos drivers da APBUART e inicialização da APBUART 0 */
 
@@ -46,11 +45,11 @@ int main(void){
 
     for(cont = 0; cont < numTest; cont++){
 
-       apbuartReceiveString(device, strReceive, 0, 12);
+       apbuartReceiveString(device, strReceive, 0, 10);
 
-       strcpy(strSend, strReceive);
+       CipherCaesar(strReceive, strSend, 0);
 
-	   apbuartSendString(device, strSend);
+	   apbuartSendString(device, strReceive);
 
 	}
 
@@ -96,8 +95,10 @@ void CipherCaesar(char str[MAX_STRING], char strTransformed[MAX_STRING], int num
 			   numOffset --> Offset usado na Cifra de César.
 */
  
-    char characters[MAX_STRING] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    char characters[MAX_STRING] = " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 	int cont = 0, iChar, tIChar;
+
+	strcpy(strTransformed, "");
 
     for(cont = 0; cont < strlen(str); cont++){
 
@@ -105,7 +106,7 @@ void CipherCaesar(char str[MAX_STRING], char strTransformed[MAX_STRING], int num
 
 	   tIChar = (iChar + numOffset) % strlen(characters);
 	   
-	   strTransformed[cont] = characters[tIChar];
+	   sprintf(strTransformed,"%s%c", strTransformed, characters[tIChar]);
 
 	}
 

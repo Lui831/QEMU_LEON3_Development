@@ -16,7 +16,7 @@ void apbuartSendString(struct apbuart_priv *device, char strSend[MAX_STRING]){
 
 /* Realiza um laço de repetição para envio de byte a byte */
 
-	for(cont = 0;cont < strLen;cont++){
+	for(cont = 0 ;cont < strLen;cont++){
 
           confirm = 0;
 
@@ -42,7 +42,8 @@ void apbuartReceiveString(struct apbuart_priv *device, char strReceive[MAX_STRIN
 
 /* Inicializa as variáveis */
 
-	uint32_t cont = 0, confirm, statsRegister;
+	uint32_t cont = 0, statsRegister;
+	int confirm;
     const uint32_t mask = (0b111111 << 26);
 
     strcpy(strReceive,"");
@@ -61,8 +62,9 @@ void apbuartReceiveString(struct apbuart_priv *device, char strReceive[MAX_STRIN
 
           	  while(confirm == -1){
           		 confirm = apbuart_inbyte(device);
-          		 strReceive[cont] = confirm;
+          		 // strReceive[cont] = confirm;
           	  }
+       		 sprintf(strReceive, "%s%c", strReceive, (char) confirm);
 		}
 
 	     	break;
