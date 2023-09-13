@@ -75,7 +75,7 @@ def oSerialTestMaker(serialComn, numData, numOffset,cntrl, stopByte):
 
    # OBS: esta função deve ser chamada após o programa estar conectado a uma porta serial.
 
-   testReport = {"strSend" : "" , "strReceive" : "", "status" : False}
+   testReport = {"strSend" : "" , "strReceive" : "", "strExpected" : "" , "status" : False}
 
    strSend = strDataGenerator(numData)
    testReport["strSend"] = strSend

@@ -51,7 +51,7 @@ os.system("cls")
 print("Iniciando os testes...")
 time.sleep(1.5)
 
-for cont in range(0, numTest - 1):
+for cont in range(0, numTest):
 
    print("TESTE %i" % cont)
    
