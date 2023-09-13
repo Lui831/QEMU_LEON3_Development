@@ -63,9 +63,9 @@ int main(void){
 	cfg3.flow = 0;
 	cfg3.mode = APBUART_MODE_NONINT; //UART_MODE_NONINT
 
-	apbuart_config(device1, &cfg);
-	apbuart_config(device2, &cfg);
-	apbuart_config(device3, &cfg);
+	apbuart_config(device1, &cfg1);
+	apbuart_config(device2, &cfg2);
+	apbuart_config(device3, &cfg3);
 
 /* Loop de recebimento pela APBUART 2, envio pela APBUART 1, recebimento e transformação pela APBUART 0 e reenvio pela APBUART 2 */
 
@@ -73,27 +73,20 @@ int main(void){
 
        /* APBUART 2 recebe a informação vinda pelo adaptador serial */
 
-       apbuartReceiveString(device3, strReceive, 0, 50);
-	   strcpy(strSend, strReceive)
+       apbuartReceiveString(device1, strReceive, 0, 50);
+	   strcpy(strSend, strReceive);
 
        /* APBUART 1 envia informação recebida para APBUART 0*/
 
-       apbuartSendString(device2, strSend);
-
-       /* APBUART 0 recebe informação, realiza transformação e envia novamente para APBUART 1*/
-
-	   apbuartReceiveString(device1, strReceive, 0, 50);
+	   apbtToApbtStringRecv(device2, device3, strSend, strReceive);
 	   CipherCaesar(strReceive, strSend, numOffset);
-	   apbuartSendString(device1, strSend);
+	   apbtToApbtStringRecv(device3, device2, strSend, strReceive);
 
-       /* APBUART 1 recebe informação */
-
-       apbuartReceiveString(device2, strReceive, 0, 50);
 	   strcpy(strSend, strReceive);
 
        /* APBUART 2 envia informação novamente para o adaptador serial */
 
-	   apbuartSendString(device3, strSend);
+	   apbuartSendString(device1, strSend);
 
 	}
 
@@ -101,7 +94,7 @@ int main(void){
 
 	apbuart_close(device1);
 	apbuart_close(device2);
-	apbuart_clode(device3);
+	apbuart_close(device3);
 
 	return 0;
 }
@@ -143,21 +136,23 @@ void CipherCaesar(char str[MAX_STRING], char strTransformed[MAX_STRING], int num
 			   numOffset --> Offset usado na Cifra de César.
 */
  
-    char characters[MAX_STRING] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-	char newchar;
+    char characters[MAX_STRING] = " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 	int cont = 0, iChar, tIChar;
+
+	strcpy(strTransformed, "");
 
     for(cont = 0; cont < strlen(str); cont++){
 
        iChar = iFindChar(characters, str[cont]);
 
 	   tIChar = (iChar + numOffset) % strlen(characters);
-	   
-	   strTransformed[cont] = characters[tIChar];
+
+	   *(strTransformed + strlen(strTransformed) + 1) = '\0';
+
+	   *(strTransformed + strlen(strTransformed)) = characters[tIChar];
 
 	}
 
 	return;
 }
-
 

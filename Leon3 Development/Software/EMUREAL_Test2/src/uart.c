@@ -103,6 +103,56 @@ void apbuartReceiveString(struct apbuart_priv *device, char strReceive[MAX_STRIN
 }
 
 
+void apbtToApbtStringRecv(struct apbuart_priv *deviceSend, struct apbuart_priv *deviceRecv, char strSend[STRING_MAX], char strReceive[STRING_MAX]){
+
+	uint32_t strLen, cont, confirm, statsRegister;
+	const uint32_t maskSend = (1 << 1) | (1 << 2), maskRecv = (0b111111 << 26);
+
+	strLen = strlen(strSend);
+
+	for(cont = 0; cont < strLen; cont++){
+
+		confirm = 0;
+
+		while(confirm == 0){
+
+			confirm = apbuart_outbyte(deviceSend, strSend[cont]);
+
+		}
+
+		confirm = -1;
+
+		while(confirm == -1){
+
+			confirm = apbuart_inbyte(deviceRecv);
+
+		}
+
+		strReceive[cont] = confirm;
+
+        do{
+
+          statsRegister = apbuart_get_status(deviceSend);
+
+          statsRegister = statsRegister & maskSend;
+
+        }while(statsRegister != 0);
+
+        do{
+
+          statsRegister = apbuart_get_status(deviceRecv);
+
+          statsRegister = statsRegister & maskRecv;
+
+        }while(statsRegister != 0);
+
+
+	}
+
+	return;
+}
+
+
 
 
 
