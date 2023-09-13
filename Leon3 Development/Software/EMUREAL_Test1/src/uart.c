@@ -20,7 +20,13 @@ void apbuartSendString(struct apbuart_priv *device, char strSend[MAX_STRING]){
 
           confirm = 0;
 
-          while(confirm != 1) confirm = apbuart_outbyte(device, strSend[cont]); // Enquanto o byte não for enviado, continua no laço de repetição
+/* Enquanto o byte não for enviado, continua no laço de repetição*/
+
+          while(confirm != 1){
+			
+			 confirm = apbuart_outbyte(device, strSend[cont])
+			 
+			 };
 
 	}
 
@@ -60,11 +66,19 @@ void apbuartReceiveString(struct apbuart_priv *device, char strReceive[MAX_STRIN
 
           	  confirm = -1;
 
+/* Enquanto não recebe o byte, continua no laço de repetição*/
+
           	  while(confirm == -1){
+
           		 confirm = apbuart_inbyte(device);
-          		 // strReceive[cont] = confirm;
+
           	  }
-       		 sprintf(strReceive, "%s%c", strReceive, (char) confirm);
+
+/* Adiciona os byte à string pela passagem por referência*/
+
+	         *(strReceive + strlen(strReceive) + 1) = '\0';
+
+	         *(strReceive + strlen(strReceive)) = (char) confirm;
 		}
 
 	     	break;
@@ -76,12 +90,22 @@ void apbuartReceiveString(struct apbuart_priv *device, char strReceive[MAX_STRIN
 	     	do{
 
           	  confirm = -1;
+			  
+/* Enquanto não recebe o byte, continua no laço de repetição*/			  
 
-          	  while(confirm == -1) confirm = apbuart_inbyte(device);
+          	  while(confirm == -1){
+				
+			     confirm = apbuart_inbyte(device);
 
-                  strReceive[cont] = confirm;
+			  }
 
-                  cont++;
+/* Adiciona o byte à string pela passagem por referência*/
+
+              *(strReceive + strlen(strReceive) + 1) = '\0';
+
+	          *(strReceive + strlen(strReceive)) = (char) confirm;
+
+              cont++;
 
 	        }while(confirm != stopnumBytes);
 

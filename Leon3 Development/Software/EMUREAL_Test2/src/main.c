@@ -11,6 +11,12 @@ int iFindChar(char str[MAX_STRING], char chr);
 
 void CipherCaesar(char str[MAX_STRING], char strTransformed[MAX_STRING], int numOffset);
 
+
+
+
+/* Função main */
+
+
 int main(void){
 
 /* 	Declaração das variáveis principais */
@@ -101,6 +107,7 @@ int main(void){
 
 /* Definição de funções importantes ao código */
 
+
 int iFindChar(char str[MAX_STRING], char chr){
 /* Desc: Função utilizada para encontrar a primeira ocorrência de um caractere em uma string.
    Return: index onde o caracter foi encontrado.
@@ -141,11 +148,19 @@ void CipherCaesar(char str[MAX_STRING], char strTransformed[MAX_STRING], int num
 
 	strcpy(strTransformed, "");
 
+/* Aplica a cifra de César para cada caractere*/
+
     for(cont = 0; cont < strlen(str); cont++){
+
+/* Encontra a posição do caractere na string de caracteres*/
 
        iChar = iFindChar(characters, str[cont]);
 
+/* Aplica o offset sobre a posição*/
+
 	   tIChar = (iChar + numOffset) % strlen(characters);
+
+/* Insere o o caracter transformado na string transformada*/
 
 	   *(strTransformed + strlen(strTransformed) + 1) = '\0';
 

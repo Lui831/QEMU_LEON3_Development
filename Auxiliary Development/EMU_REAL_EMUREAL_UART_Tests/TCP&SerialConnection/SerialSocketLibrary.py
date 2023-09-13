@@ -1,3 +1,18 @@
+
+##################################################################################################################################################################################
+##################################################################################################################################################################################
+
+# SerialSocketLibrary
+
+# Desc: biblioteca para a conexão entre o programa e portas via socket ou seriais. Inclui funções de conexão, escrita e recebimento de dados em ambos os casos.
+# Functions: serialSocketConnect --> Utilizada para conexão a um socket ou serial.
+#            writeSerial --> Função de envio de dados via porta serial.
+#            writeSocket --> Função de envio de dados via porta TCP.
+#            readSerial --> Função de recebimento de dados via porta serial.
+#            readSocket --> Função de recebimento de dados via porta TCP.
+# Libraries: serial, serial.tools.list_ports, socket, random.
+
+
 ##################################################################################################################################################################################
 ##################################################################################################################################################################################
 # Import de bibliotecas necessárias
@@ -7,6 +22,7 @@ import serial
 import serial.tools.list_ports
 from socket import *
 from random import *
+import time
 
 
 
@@ -110,7 +126,7 @@ def writeSocket(socket,string):
    # Parameters: socket --> Objeto da classe socket representando uma porta TCP conectada.
    #             string --> String a ser enviada
 
-   socket.send(string.encode("utf-8"))
+   socket.send(string.encode())
 
    return
 
@@ -126,6 +142,8 @@ def strReadSerial(cntrl, serialComn, stopByte, numBytes):
 
    string = ""
 
+   # Se cntrl for igual a "stopByte", então recebimento de string é delimitado pelo parâmetro stopByte
+
    if cntrl == "stopByte":
       
       byteAdd = serialComn.read().decode("utf-8")
@@ -135,9 +153,11 @@ def strReadSerial(cntrl, serialComn, stopByte, numBytes):
         string = string + byteAdd
         byteAdd = serialComn.read().decode("utf-8")
 
+   # Se cntrl for igual a "numBytes", então recebimento de string é delimitado pelo parâmetro numBytes
+
    elif cntrl == "numBytes":
 
-      for i in range(1,numBytes):
+      for i in range(0,numBytes):
 
          string = string + serialComn.read().decode("utf-8")
 
@@ -147,12 +167,11 @@ def strReadSerial(cntrl, serialComn, stopByte, numBytes):
 def strReadSocket(socket):
    # Desc: Função utilizada para receber uma string por meio de uma porta TCP.
    # Return: String a ser recebida.
-   # Parameters: socket --> Objeto da classe socket representando uma porta TCP conectada.
+   # Parameters: socket --> Objeto da classe serial representando uma porta serial conectada.
 
    string = socket.recv(1024).decode("utf-8")
 
    return string
-      
 
 
       

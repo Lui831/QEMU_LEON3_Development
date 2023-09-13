@@ -82,6 +82,8 @@ def oSerialTestMaker(serialComn, numData, numOffset,cntrl, stopByte):
 
    writeSerial(serialComn, strSend)
 
+   time.sleep(1.5)
+
    strReceive = strReadSerial(cntrl,serialComn,stopByte,numData)
    testReport["strReceive"] = strReceive
    testReport["strExpected"] = strCipherCaesar(strSend, numOffset)
@@ -107,7 +109,7 @@ def oSocketTestMaker(socket, numData, numOffset):
 
    # OBS: esta função deve ser chamada após o programa estar conectado a um socket.
 
-   testReport = {"strSend" : "" , "strReceive" : "", "status" : False, "strExpected" : ""}
+   testReport = {"strSend" : "" , "strReceive" : "", "strExpected" : "", "status" : False}
 
    strSend = strDataGenerator(numData)
    testReport["strSend"] = strSend
@@ -142,7 +144,7 @@ def oSerialSocketTestMaker(socket, serialComn, numData, numOffset, cntrl, stopBy
 
    # OBS: esta função deve ser chamada após o programa estar conectado a uma porta serial e a um socket.
 
-   testReport = {"strSend" : "" , "strReceive" : "", "status" : False}
+   testReport = {"strSend" : "" , "strReceive" : "", "strExpected" : "", "status" : False}
 
    strSend = strDataGenerator(numData)
    testReport["strSend"] = strSend
@@ -151,8 +153,9 @@ def oSerialSocketTestMaker(socket, serialComn, numData, numOffset, cntrl, stopBy
 
    strReceive = strReadSerial("numBytes", serialComn, '', numData)
    testReport["strReceive"] = strReceive
+   testReport["strExpected"] = strCipherCaesar(strSend, numOffset)
 
-   if strReceive == strCipherCaesar(strSend, numOffset):
+   if strReceive == testReport["strExpected"]:
 
       testReport["status"] = True
 

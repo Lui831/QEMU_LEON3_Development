@@ -5,11 +5,20 @@
 #include <string.h>
 #include "include/uart.h"
 
+
+
+
 /* Protótipos de funções importantes ao código */
 
 int iFindChar(char str[MAX_STRING], char chr);
 
 void CipherCaesar(char str[MAX_STRING], char strTransformed[MAX_STRING], int numOffset);
+
+
+
+
+/* Função main */
+
 
 int main(void){
 
@@ -18,7 +27,10 @@ int main(void){
 	struct apbuart_priv *device;
 	struct apbuart_config cfg;
 	char strSend[MAX_STRING], strReceive[MAX_STRING];
-	int numTest = 1000, cont;
+	
+    int numTest = 25; /*DIGITE O NÚMERO DE TESTES*/
+	int numOffset = 18; /*DIGITE O OFFSET UTILIZADO NA CIFRA DE CÉSAR*/
+	int numBytes = 20; /*DIGITE O NÚMERO DE BYTES A SEREM ENVIADOS/RECEBIDOS POR TESTE*/
 
 /* Inicialização dos drivers da APBUART e inicialização da APBUART 0 */
 
@@ -35,9 +47,9 @@ int main(void){
 /* Configurações da APBUART */
 
 	cfg.baud = 9600;
-	cfg.parity = APBUART_PAR_NONE; // UART_PAR_NONE
+	cfg.parity = APBUART_PAR_NONE;
 	cfg.flow = 0;
-	cfg.mode = APBUART_MODE_NONINT; //UART_MODE_NONINT
+	cfg.mode = APBUART_MODE_NONINT;
 
 	apbuart_config(device, &cfg);
 
@@ -45,9 +57,9 @@ int main(void){
 
     for(cont = 0; cont < numTest; cont++){
 
-       apbuartReceiveString(device, strReceive, 0, 10);
+       apbuartReceiveString(device, strReceive, 0, numBytes);
 
-       CipherCaesar(strReceive, strSend, 25);
+       CipherCaesar(strReceive, strSend, numOffset);
 
 	   apbuartSendString(device, strSend);
 
@@ -58,7 +70,11 @@ int main(void){
 	return 0;
 }
 
+
+
+
 /* Definição de funções importantes ao código */
+
 
 int iFindChar(char str[MAX_STRING], char chr){
 /* Desc: Função utilizada para encontrar a primeira ocorrência de um caractere em uma string.
@@ -100,11 +116,19 @@ void CipherCaesar(char str[MAX_STRING], char strTransformed[MAX_STRING], int num
 
 	strcpy(strTransformed, "");
 
+/* Aplica a cifra de César para cada caractere*/
+
     for(cont = 0; cont < strlen(str); cont++){
+
+/* Encontra a posição do caractere na string de caracteres*/
 
        iChar = iFindChar(characters, str[cont]);
 
+/* Aplica o offset sobre a posição*/
+
 	   tIChar = (iChar + numOffset) % strlen(characters);
+
+/* Insere o o caracter transformado na string transformada*/
 
 	   *(strTransformed + strlen(strTransformed) + 1) = '\0';
 
