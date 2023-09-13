@@ -56,7 +56,7 @@ def strCipherCaesar(string, numOffset):
    for chr in string:
 
       posChr = characters.find(chr)
-      posChr = (posChr + numOffset) % (len(characters) - 1)
+      posChr = (posChr + numOffset) % (len(characters))
       strCipher = strCipher + characters[posChr]
 
    return strCipher
@@ -108,7 +108,7 @@ def oSocketTestMaker(socket, numData, numOffset):
 
    # OBS: esta função deve ser chamada após o programa estar conectado a um socket.
 
-   testReport = {"strSend" : "" , "strReceive" : "", "status" : False}
+   testReport = {"strSend" : "" , "strReceive" : "", "status" : False, "strExpected" : ""}
 
    strSend = strDataGenerator(numData)
    testReport["strSend"] = strSend
@@ -117,8 +117,9 @@ def oSocketTestMaker(socket, numData, numOffset):
 
    strReceive = strReadSocket(socket)
    testReport["strReceive"] = strReceive
+   testReport["strExpected"] = strCipherCaesar(strSend, numOffset)
 
-   if strReceive == strCipherCaesar(strSend, numOffset):
+   if strReceive == testReport["strExpected"]:
 
       testReport["status"] = True
 
