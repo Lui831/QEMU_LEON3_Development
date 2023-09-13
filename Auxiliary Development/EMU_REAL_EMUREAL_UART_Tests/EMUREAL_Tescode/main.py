@@ -63,12 +63,12 @@ for cont in range(0, numTest - 1):
 
    if testReport["status"] == True:
 
-      print("Sucesso! Resultados do teste: [strSend -> %s , strReceive -> %s , status -> %s).\n" % (testReport["strSend"], testReport["strReceive"], testReport["status"]))
+      print("Sucesso! Resultados do teste: [strSend -> %s , strReceive -> %s , strExpected -> %s , status -> %s).\n" % (testReport["strSend"], testReport["strReceive"], testReport["strExpected"], testReport["status"]))
       okTests += 1
 
    else:
 
-      print("Falha! Resultados do teste: [strSend -> %s , strReceive -> %s , status -> %s).\n" % (testReport["strSend"], testReport["strReceive"], testReport["status"]))
+      print("Falha! Resultados do teste: [strSend -> %s , strReceive -> %s, strExpected -> %s , status -> %s).\n" % (testReport["strSend"], testReport["strReceive"],  testReport["strExpected"], testReport["status"]))
       failTests += 1
 
 
