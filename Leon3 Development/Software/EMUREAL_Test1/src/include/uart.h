@@ -11,4 +11,7 @@ void apbuartReceiveString(struct apbuart_priv *device, char strReceive[MAX_STRIN
 // Para cntrl = 0, deve ser informado o número de bytes a serem recebidos a partir da variável stopnumBytes
 // Para cntrl = 1, deve ser informado o stop byte da string a ser recebida a partir da variável stopnumBytes
 
+void apbtToApbtString(struct *apbuart_priv deviceSend, struct *apbuart_priv deviceRecv, char strSend[MAX_STRING], char strRecv[MAX_STRING]);
+// Função de envio e recebimento de strings entre duas APBUARTs
+
 #endif

@@ -24,7 +24,11 @@ int main(void){
 	struct apbuart_priv *device1, *device2, *device3;
 	struct apbuart_config cfg1, cfg2, cfg3;
 	char strSend[MAX_STRING], strReceive[MAX_STRING];
-	int numTest = 25, numOffset = 18, cont;
+	int cont;
+
+	int numTest = 25; /* DIGITE O NÚMERO DE TESTES A SEREM REALIZADOS */
+	int numBytes = 10; /* DIGITE O NÚMERO DE BYTES A SEREM ENVIADOS/RECEBIDOS */
+	int numOffset = 0; /* DIGITE O OFFSET A SER UTILIZADO NA CIFRA DE CÉSAR */
 
 /* Inicialização dos drivers da APBUART e inicialização da APBUART 0 */
 
@@ -79,7 +83,7 @@ int main(void){
 
        /* APBUART 2 recebe a informação vinda pelo adaptador serial */
 
-       apbuartReceiveString(device1, strReceive, 0, 50);
+       apbuartReceiveString(device1, strReceive, 0, numBytes);
 	   strcpy(strSend, strReceive);
 
        /* APBUART 1 envia informação recebida para APBUART 0*/

@@ -12,7 +12,10 @@ int main(void){
 	struct apbuart_priv *device1, *device2;
 	struct apbuart_config cfg1, cfg2, cfg3;
 	char strSend[MAX_STRING], strReceive[MAX_STRING];
-	int numTest = 25, cont, numBytes = 50;
+	
+	uint32_t numTest = 25; /* DIGITE O NÚMERO DE TESTES A SEREM REALIZADOS */
+	uint32_t numBytes = 10; /* DIGITE O NÚMERO DE BYTES A SEREM ENVIADOS/RECEBIDOS */
+	uint32_t numOffset = 0; /* DIGITE O OFFSET A SER UTILIZADO NA CIFRA DE CÉSAR */
 
 /* Inicialização dos drivers da APBUART e inicialização da APBUART 0 */
 
