@@ -24,9 +24,9 @@ void apbuartSendString(struct apbuart_priv *device, char strSend[MAX_STRING]){
 
           while(confirm != 1){
 			
-			 confirm = apbuart_outbyte(device, strSend[cont])
+			 confirm = apbuart_outbyte(device, strSend[cont]);
 			 
-			 };
+			 }
 
 	}
 
@@ -128,7 +128,7 @@ void apbuartReceiveString(struct apbuart_priv *device, char strReceive[MAX_STRIN
 	return;    
 }
 
-void apbtToApbtString(struct *apbuart_priv deviceSend, struct *apbuart_priv deviceRecv, char strSend[MAX_STRING], char strRecv[MAX_STRING]){
+void apbtToApbtString(struct apbuart_priv *deviceSend, struct apbuart_priv *deviceRecv, char strSend[MAX_STRING], char strRecv[MAX_STRING]){
 
 /* Inicializa as variáveis */
 
@@ -137,9 +137,9 @@ void apbtToApbtString(struct *apbuart_priv deviceSend, struct *apbuart_priv devi
 
 /* Envio e recebimento de cada caractere */
 
-   for(cont = 0; cont < strlen(strSend) < cont++){
+   for(cont = 0; cont < strlen(strSend); cont++){
 
-      confirm = 0
+      confirm = 0;
 
 /* Enquanto o caractere não é enviado, repete a função de envio de dados */
 
@@ -149,7 +149,7 @@ void apbtToApbtString(struct *apbuart_priv deviceSend, struct *apbuart_priv devi
 
       }
 
-	  confirm = -1
+	  confirm = -1;
 
 /* Enquanto o caractere não é recebido, repete a função de recebimento de dados */
 

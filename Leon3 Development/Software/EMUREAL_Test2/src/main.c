@@ -26,9 +26,9 @@ int main(void){
 	char strSend[MAX_STRING], strReceive[MAX_STRING];
 	int cont;
 
-	int numTest = 25; /* DIGITE O NÚMERO DE TESTES A SEREM REALIZADOS */
-	int numBytes = 10; /* DIGITE O NÚMERO DE BYTES A SEREM ENVIADOS/RECEBIDOS */
-	int numOffset = 0; /* DIGITE O OFFSET A SER UTILIZADO NA CIFRA DE CÉSAR */
+	int numTest = 1000; /* DIGITE O NÚMERO DE TESTES A SEREM REALIZADOS */
+	int numBytes = 100; /* DIGITE O NÚMERO DE BYTES A SEREM ENVIADOS/RECEBIDOS */
+	int numOffset = 18; /* DIGITE O OFFSET A SER UTILIZADO NA CIFRA DE CÉSAR */
 
 /* Inicialização dos drivers da APBUART e inicialização da APBUART 0 */
 
@@ -58,17 +58,17 @@ int main(void){
 
 /* Configurações das APBUARTS */
 
-	cfg1.baud = 9600;
+	cfg1.baud = 28800;
 	cfg1.parity = APBUART_PAR_NONE; // UART_PAR_NONE
 	cfg1.flow = 0;
 	cfg1.mode = APBUART_MODE_NONINT; //UART_MODE_NONINT
 
-	cfg2.baud = 9600;
+	cfg2.baud = 28800;
 	cfg2.parity = APBUART_PAR_NONE; // UART_PAR_NONE
 	cfg2.flow = 0;
 	cfg2.mode = APBUART_MODE_NONINT; //UART_MODE_NONINT
 
-	cfg3.baud = 9600;
+	cfg3.baud = 28800;
 	cfg3.parity = APBUART_PAR_NONE; // UART_PAR_NONE
 	cfg3.flow = 0;
 	cfg3.mode = APBUART_MODE_NONINT; //UART_MODE_NONINT
@@ -88,9 +88,9 @@ int main(void){
 
        /* APBUART 1 envia informação recebida para APBUART 0*/
 
-	   apbtToApbtStringRecv(device2, device3, strSend, strReceive);
+	   apbtToApbtString(device2, device3, strSend, strReceive);
 	   CipherCaesar(strReceive, strSend, numOffset);
-	   apbtToApbtStringRecv(device3, device2, strSend, strReceive);
+	   apbtToApbtString(device3, device2, strSend, strReceive);
 
 	   strcpy(strSend, strReceive);
 
