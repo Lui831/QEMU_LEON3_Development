@@ -34,19 +34,21 @@ int main(void){
 
 	apbuart_config(device, &cfg);
 
-/* Recebimento dos dados */
+///* Recebimento dos dados */
+//
+//   apbuartReceiveString(device,strReceive,1,0x21);
+//
+///* Transformação da massa de dados recebida */
+//
+//    sprintf(strSend, "%s , %s", strReceive, strAdd);
+//
+///* Reenvio da massa de dados transformada */
+//
+//    apbuartSendString(device,strSend);
+//
+///* Fechamento do APBUART aberta */
 
-   apbuartReceiveString(device,strReceive,1,0x21);
-
-/* Transformação da massa de dados recebida */
-
-    sprintf(strSend, "%s , %s", strReceive, strAdd);
-
-/* Reenvio da massa de dados transformada */
-
-    apbuartSendString(device,strSend);
-
-/* Fechamento do APBUART aberta */
+	apbuartSendString(device, "Salve Salve rapaziada!");
 
 	apbuart_close(device);
 

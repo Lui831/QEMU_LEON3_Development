@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.3 (0e150ed6c4, 2023-07-21)"
+   sodipodi:docname="Test12Diagram.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="0.72426347"
+     inkscape:cx="305.82793"
+     inkscape:cy="479.79777"
+     inkscape:window-width="1920"
+     inkscape:window-height="1009"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1">
+    <marker
+       style="overflow:visible"
+       id="marker10"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Triangle arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path10" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Triangle"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Triangle arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135" />
+    </marker>
+    <rect
+       x="292.89346"
+       y="316.32494"
+       width="194.28599"
+       height="129.84944"
+       id="rect5" />
+    <rect
+       x="87.868039"
+       y="387.59568"
+       width="118.1337"
+       height="41.005085"
+       id="rect8" />
+    <rect
+       x="310.66043"
+       y="225.05622"
+       width="143.59415"
+       height="86.98492"
+       id="rect3" />
+    <rect
+       x="87.868042"
+       y="387.59567"
+       width="168.9019"
+       height="63.460251"
+       id="rect8-6" />
+    <rect
+       x="292.89346"
+       y="316.32495"
+       width="194.286"
+       height="129.84944"
+       id="rect5-1" />
+    <rect
+       x="292.89346"
+       y="316.32495"
+       width="221.90026"
+       height="168.5094"
+       id="rect5-1-4" />
+    <rect
+       x="292.89346"
+       y="316.32495"
+       width="194.286"
+       height="129.84944"
+       id="rect5-5" />
+    <rect
+       x="292.89346"
+       y="316.32495"
+       width="194.286"
+       height="129.84944"
+       id="rect5-5-2" />
+    <rect
+       x="292.89346"
+       y="316.32495"
+       width="194.286"
+       height="129.84944"
+       id="rect5-5-2-1" />
+  </defs>
+  <g
+     inkscape:label="Camada 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#00ffff;fill-opacity:0.221782;stroke:#000000;stroke-width:0.362483;stroke-opacity:1"
+       id="rect1"
+       width="159.9059"
+       height="130.6808"
+       x="16.284424"
+       y="7.6431432" />
+    <rect
+       style="fill:#00eeee;fill-opacity:0.39802;stroke:#ffffff;stroke-width:0.740431;stroke-opacity:0"
+       id="rect2"
+       width="134.68661"
+       height="98.63517"
+       x="28.003557"
+       y="27.272921" />
+    <text
+       xml:space="preserve"
+       transform="scale(0.26458333)"
+       id="text2"
+       style="font-size:24px;font-family:Calibri;-inkscape-font-specification:Calibri;text-align:center;white-space:pre;shape-inside:url(#rect3);display:inline;fill:#00eeee;fill-opacity:1;stroke:#ffffff;stroke-width:0.986457;stroke-opacity:0" />
+    <text
+       xml:space="preserve"
+       style="font-size:8.46667px;font-family:Calibri;-inkscape-font-specification:Calibri;text-align:center;text-anchor:middle;white-space:pre;inline-size:278.968;display:inline;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0.261;stroke-opacity:0"
+       x="100.82657"
+       y="72.697411"
+       id="text4"
+       transform="translate(-37.99262,-8.402214)" />
+    <text
+       xml:space="preserve"
+       style="font-size:8.46667px;font-family:Calibri;-inkscape-font-specification:Calibri;text-align:center;text-anchor:middle;white-space:pre;inline-size:142.341;display:inline;fill:#008080;fill-opacity:1;stroke:#ffffff;stroke-width:0.261;stroke-opacity:0"
+       x="100.82657"
+       y="72.697411"
+       id="text4-8"
+       transform="translate(-40.443685,-53.985147)"><tspan
+         x="100.82657"
+         y="72.697411"
+         id="tspan2">Windows Environment</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:8.46667px;font-family:Calibri;-inkscape-font-specification:Calibri;text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0.261;stroke-dasharray:none;stroke-opacity:1"
+       x="63.929874"
+       y="38.540585"
+       id="text1"><tspan
+         sodipodi:role="line"
+         id="tspan1"
+         style="font-size:8.46667px;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0.261;stroke-dasharray:none;stroke-opacity:1"
+         x="63.929874"
+         y="38.540585">Test Code (Python)</tspan></text>
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.205463;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4"
+       width="47.32732"
+       height="30.536797"
+       x="49.794907"
+       y="46.73629" />
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,-30.103888,-38.328821)"
+       id="text5"
+       style="font-size:21.3333px;font-family:Calibri;-inkscape-font-specification:Calibri;text-align:center;white-space:pre;shape-inside:url(#rect5);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.986457;stroke-dasharray:none;stroke-opacity:1"><tspan
+         x="390.03613"
+         y="334.99086"
+         id="tspan4">&#10;</tspan><tspan
+         x="313.57792"
+         y="361.65748"
+         id="tspan8">Geração aleatória&#10;</tspan><tspan
+         x="308.94251"
+         y="388.32411"
+         id="tspan9">de string (str) a ser </tspan><tspan
+         x="356.21327"
+         y="414.99073"
+         id="tspan10">enviada</tspan></text>
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.222072;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4-1"
+       width="55.318501"
+       height="30.520187"
+       x="46.145813"
+       y="83.188354" />
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,-29.6345,-2.5491984)"
+       id="text5-1"
+       style="font-size:21.3333px;font-family:Calibri;-inkscape-font-specification:Calibri;text-align:center;white-space:pre;shape-inside:url(#rect5-1);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.986457;stroke-dasharray:none;stroke-opacity:1"><tspan
+         x="390.03613"
+         y="334.99086"
+         id="tspan11">&#10;</tspan><tspan
+         x="312.92688"
+         y="361.65748"
+         id="tspan12">Transformação da </tspan><tspan
+         x="293.45295"
+         y="388.32411"
+         id="tspan13">string str para strTrans </tspan><tspan
+         x="296.17691"
+         y="414.99073"
+         id="tspan14">usando Cifra de César</tspan></text>
+    <rect
+       style="fill:#666666;fill-opacity:0.221782;stroke:#000000;stroke-width:0.279046;stroke-opacity:1"
+       id="rect1-7"
+       width="119.80484"
+       height="103.36571"
+       x="16.179705"
+       y="182.62071" />
+    <rect
+       style="fill:#666666;fill-opacity:1;stroke:#ffffff;stroke-width:0.616936;stroke-opacity:0"
+       id="rect4-1-4"
+       width="93.164375"
+       height="73.072113"
+       x="29.811441"
+       y="191.91574" />
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.229303;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4-5"
+       width="58.993515"
+       height="30.512957"
+       x="44.704315"
+       y="210.59406" />
+    <text
+       xml:space="preserve"
+       style="font-size:8.46667px;font-family:Calibri;-inkscape-font-specification:Calibri;text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0.261;stroke-opacity:0"
+       x="66.841637"
+       y="261.29379"
+       id="text6"><tspan
+         sodipodi:role="line"
+         id="tspan6"
+         style="stroke-width:0.261"
+         x="66.841637"
+         y="261.29379">APBUART &amp; LEON3</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:8.46667px;font-family:Calibri;-inkscape-font-specification:Calibri;text-align:center;text-anchor:middle;fill:#666666;fill-opacity:1;stroke:#ffffff;stroke-width:0.261;stroke-opacity:0"
+       x="55.516911"
+       y="282.48196"
+       id="text7"><tspan
+         sodipodi:role="line"
+         id="tspan7"
+         style="stroke-width:0.261"
+         x="55.516911"
+         y="282.48196">GR712-RC Board</tspan></text>
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,-32.730751,124.65586)"
+       id="text5-1-8"
+       style="font-size:21.3333px;font-family:Calibri;-inkscape-font-specification:Calibri;text-align:center;white-space:pre;shape-inside:url(#rect5-1-4);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.986457;stroke-dasharray:none;stroke-opacity:1"><tspan
+         x="403.84277"
+         y="334.99086"
+         id="tspan15">&#10;</tspan><tspan
+         x="312.97833"
+         y="361.65748"
+         id="tspan16">Transformação da str </tspan><tspan
+         x="305.60855"
+         y="388.32411"
+         id="tspan17">recebida para strTrans' </tspan><tspan
+         x="309.98355"
+         y="414.99073"
+         id="tspan18">usando Cifra de César</tspan></text>
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.205463;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4-3"
+       width="47.32732"
+       height="30.536797"
+       x="109.57843"
+       y="61.523544" />
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,30.376654,-24.12068)"
+       id="text5-8"
+       style="font-size:21.3333px;font-family:Calibri;-inkscape-font-specification:Calibri;text-align:center;white-space:pre;shape-inside:url(#rect5-5);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.986457;stroke-dasharray:none;stroke-opacity:1"><tspan
+         x="390.03613"
+         y="334.99086"
+         id="tspan19">&#10;</tspan><tspan
+         x="318.42687"
+         y="361.65748"
+         id="tspan20">Comparação das </tspan><tspan
+         x="317.05187"
+         y="388.32411"
+         id="tspan21">strings strTrans e </tspan><tspan
+         x="353.4164"
+         y="414.99073"
+         id="tspan22">strTrans'</tspan></text>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.265;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Triangle)"
+       d="m 73.603734,77.273087 0.05624,5.915267"
+       id="path5"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:connection-start="#rect4"
+       inkscape:connection-end="#rect4-1" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Triangle)"
+       d="m 73.852497,113.70854 0.301153,96.88552"
+       id="path6"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:connection-start="#rect4-1"
+       inkscape:connection-end="#rect4-5" />
+    <path
+       style="fill:#000000;fill-opacity:0;stroke:#000000;stroke-width:0.264999;stroke-dasharray:none;stroke-opacity:1;marker-end:;marker-start:url(#marker10)"
+       d="M 132.60885,92.059039 V 228.32103 H 104.4797"
+       id="path8" />
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,-54.667366,63.254182)"
+       id="text5-8-7"
+       style="font-size:21.3333px;font-family:Calibri;-inkscape-font-specification:Calibri;text-align:center;white-space:pre;shape-inside:url(#rect5-5-2);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.986457;stroke-dasharray:none;stroke-opacity:1"><tspan
+         x="390.03613"
+         y="334.99086"
+         id="tspan23">&#10;</tspan><tspan
+         x="301.19773"
+         y="361.65748"
+         id="tspan24">Envio e recebimento </tspan><tspan
+         x="365.36951"
+         y="388.32411"
+         id="tspan25">de str</tspan></text>
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,2.9550856,63.339088)"
+       id="text5-8-7-8"
+       style="font-size:21.3333px;font-family:Calibri;-inkscape-font-specification:Calibri;text-align:center;white-space:pre;shape-inside:url(#rect5-5-2-1);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.986457;stroke-dasharray:none;stroke-opacity:1"><tspan
+         x="390.03613"
+         y="334.99086"
+         id="tspan26">&#10;</tspan><tspan
+         x="301.19773"
+         y="361.65748"
+         id="tspan27">Envio e recebimento </tspan><tspan
+         x="340.0935"
+         y="388.32411"
+         id="tspan28">de strTrans'</tspan></text>
+  </g>
+</svg>

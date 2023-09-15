@@ -1,9 +1,9 @@
 ##################################################################################################################################################################################
 ##################################################################################################################################################################################
 
-# main - EMUREAL Test 1
+# main - EMUEMU Test 1
 
-# Desc: programa principal de execução do primeiro teste de comunicação com uma UART real.
+# Desc: programa principal de execução do primeiro teste de comunicação com uma UART emulada.
 
 
 ##################################################################################################################################################################################
@@ -38,7 +38,7 @@ failTests = 0
 
 print("Bem vindo ao Test Code do Test 1! \n")
 
-serialComn = serialSocketConnect("serial")
+socket = serialSocketConnect("socket")
 
 numTest = int(input("Digite o número de testes a serem realizados: "))
 
@@ -55,7 +55,7 @@ for cont in range(0, numTest):
 
    print("TESTE %i" % cont)
    
-   testReport = oSerialTestMaker(serialComn, numData, numOffset, "numBytes", '')
+   testReport = oSocketTestMaker(socket, numData, numOffset)
 
    if testReport["status"] == True:
 

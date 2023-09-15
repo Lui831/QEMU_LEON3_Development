@@ -5,9 +5,6 @@
 #include <string.h>
 #include "include/uart.h"
 
-
-
-
 /* Protótipos de funções importantes ao código */
 
 int iFindChar(char str[MAX_STRING], char chr);
@@ -24,56 +21,93 @@ int main(void){
 
 /* 	Declaração das variáveis principais */
 
-	struct apbuart_priv *device;
-	struct apbuart_config cfg;
+	struct apbuart_priv *device1, *device2, *device3;
+	struct apbuart_config cfg1, cfg2, cfg3;
 	char strSend[MAX_STRING], strReceive[MAX_STRING];
-	
-    uint32_t numTest = 1000; /*DIGITE O NÚMERO DE TESTES*/
-	uint32_t numOffset = 18; /*DIGITE O OFFSET UTILIZADO NA CIFRA DE CÉSAR*/
-	uint32_t numBytes = 10; /*DIGITE O NÚMERO DE BYTES A SEREM ENVIADOS/RECEBIDOS POR TESTE*/
+	int cont;
 
-	uint32_t cont = 0;
+	int numTest = 1000; /* DIGITE O NÚMERO DE TESTES A SEREM REALIZADOS */
+	int numBytes = 100; /* DIGITE O NÚMERO DE BYTES A SEREM ENVIADOS/RECEBIDOS */
+	int numOffset = 18; /* DIGITE O OFFSET A SER UTILIZADO NA CIFRA DE CÉSAR */
 
 /* Inicialização dos drivers da APBUART e inicialização da APBUART 0 */
 
 	apbuart_autoinit();
 
-	device = apbuart_open(0);
+	device1 = apbuart_open(0);
+	device2 = apbuart_open(1);
+	device3 = apbuart_open(2);
 
-	if (!device)
+	if (!device1)
 	{
 		printf("DEVICE ERROR\n");
 		return -1;
 	}
 
-/* Configurações da APBUART */
+	if (!device2)
+	{
+		printf("DEVICE ERROR\n");
+		return -1;
+	}
 
-	cfg.baud = 9600;
-	cfg.parity = APBUART_PAR_NONE;
-	cfg.flow = 0;
-	cfg.mode = APBUART_MODE_NONINT;
+	if (!device3)
+	{
+		printf("DEVICE ERROR\n");
+		return -1;
+	}
 
-	apbuart_config(device, &cfg);
+/* Configurações das APBUARTS */
 
-/* Loop de recebimento, transformação e envio de strings */
+	cfg1.baud = 28800;
+	cfg1.parity = APBUART_PAR_NONE; // UART_PAR_NONE
+	cfg1.flow = 0;
+	cfg1.mode = APBUART_MODE_NONINT; //UART_MODE_NONINT
+
+	cfg2.baud = 28800;
+	cfg2.parity = APBUART_PAR_NONE; // UART_PAR_NONE
+	cfg2.flow = 0;
+	cfg2.mode = APBUART_MODE_NONINT; //UART_MODE_NONINT
+
+	cfg3.baud = 28800;
+	cfg3.parity = APBUART_PAR_NONE; // UART_PAR_NONE
+	cfg3.flow = 0;
+	cfg3.mode = APBUART_MODE_NONINT; //UART_MODE_NONINT
+
+	apbuart_config(device1, &cfg1);
+	apbuart_config(device2, &cfg2);
+	apbuart_config(device3, &cfg3);
+
+/* Loop de recebimento pela APBUART 2, envio pela APBUART 1, recebimento e transformação pela APBUART 0 e reenvio pela APBUART 2 */
 
     for(cont = 0; cont < numTest; cont++){
 
-       apbuartReceiveString(device, strReceive, 0, numBytes);
+       /* APBUART 2 recebe a informação vinda pelo adaptador serial */
 
-       CipherCaesar(strReceive, strSend, numOffset);
+       apbuartReceiveString(device1, strReceive, 0, numBytes);
+	   strcpy(strSend, strReceive);
 
-	   apbuartSendString(device, strSend);
+       /* APBUART 1 envia informação recebida para APBUART 0*/
+
+	   apbtToApbtString(device2, device3, strSend, strReceive);
+	   CipherCaesar(strReceive, strSend, numOffset);
+	   apbtToApbtString(device3, device2, strSend, strReceive);
+
+	   strcpy(strSend, strReceive);
+
+       /* APBUART 2 envia informação novamente para o adaptador serial */
+
+	   apbuartSendString(device1, strSend);
 
 	}
 
-	apbuart_close(device);
+/* Close das 3 APBUARTs em execução*/
+
+	apbuart_close(device1);
+	apbuart_close(device2);
+	apbuart_close(device3);
 
 	return 0;
 }
-
-
-
 
 /* Definição de funções importantes ao código */
 
@@ -140,5 +174,4 @@ void CipherCaesar(char str[MAX_STRING], char strTransformed[MAX_STRING], int num
 
 	return;
 }
-
 

@@ -3,7 +3,7 @@
 
 # main - EMUREAL Test 1
 
-# Desc: programa principal de execução do primeiro teste de comunicação com uma UART real.
+# Desc: programa principal de execução do teste de comunicação entre UART real e emulada.
 
 
 ##################################################################################################################################################################################
@@ -36,26 +36,30 @@ failTests = 0
 # Estabelecimento de conexão serial e input de informações
 
 
-print("Bem vindo ao Test Code do Test 1! \n")
+print("Bem vindo ao Test Code do Test EMUREAL! \n")
 
 serialComn = serialSocketConnect("serial")
+
+socket = serialSocketConnect("socket")
 
 numTest = int(input("Digite o número de testes a serem realizados: "))
 
 numData = int(input("Digite o número de bytes a serem recebidos / enviados por teste: "))
-
-numOffset = int(input("Digite o offset a ser utilizado na transformação pela Cifra de César: "))
 
 os.system("cls")
 
 print("Iniciando os testes...")
 time.sleep(1.5)
 
-for cont in range(0, numTest):
+
+##################################################################################################################################################################################
+# Sucessão dos testes, gravando test reports para cada um
+
+for cont in range(0, numTest - 1):
 
    print("TESTE %i" % cont)
    
-   testReport = oSerialTestMaker(serialComn, numData, numOffset, "numBytes", '')
+   testReport = oSerialSocketTestMaker(socket, serialComn, numData, 0, "numBytes", '')
 
    if testReport["status"] == True:
 
@@ -66,6 +70,10 @@ for cont in range(0, numTest):
 
       print("Falha! Resultados do teste: [strSend -> %s , strReceive -> %s, strExpected -> %s , status -> %s).\n" % (testReport["strSend"], testReport["strReceive"],  testReport["strExpected"], testReport["status"]))
       failTests += 1
+
+
+##################################################################################################################################################################################
+# Overall dos testes realizados
 
 print("Dos %i testes realizados, foi possível verificar que %i foram sucedidos!" % (numTest, okTests))
 
