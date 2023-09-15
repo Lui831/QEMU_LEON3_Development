@@ -3,7 +3,7 @@
 #include <string.h>
 #include "include/uart.h"
 
-bool bApbuartSendString(struct apbuart_priv *pxDevice, char strStringSend[MAX_STRING], bool bWait){
+bool bApbuartSendString(struct apbuart_priv *pxDevice, char strStringSend[U32_MAX_STRING], bool bWait){
 
 /* Inicializa as variáveis */
 
@@ -52,91 +52,63 @@ bool bApbuartSendString(struct apbuart_priv *pxDevice, char strStringSend[MAX_ST
 }
 
 
-void apbuartReceiveString(struct apbuart_priv *device, char strReceive[MAX_STRING], uint32_t cntrl, uint32_t stopnumBytes){
+uint32_t u32ApbuartReceiveString(struct apbuart_priv *pxDevice, char strStringReceive[U32_MAX_STRING], char cStopByte, uint32_t u32StringReceiveLength, bool bWait){
 
-/* Inicializa as variáveis */
+    /* Inicializa as variáveis */
+	uint32_t u32Cont = 0, u32StatusRegister;
+	int32_t i32Confirm;
 
-	uint32_t cont = 0, statsRegister;
-	int32_t confirm;
-    const uint32_t mask = (0b111111 << 26);
+    /* Limpa a string de recebimento */
+    strcpy(strStringReceive,"");
 
-    strcpy(strReceive,"");
+    /* Se o tamanho da string a ser recebida for maior que o estipulado pelo código, retorna 0*/
+    if(u32StringReceiveLength > U32_MAX_STRING){
 
-/* Dita a maneira de recebimento da string a partir da variável 'control' */
-
-	switch(cntrl){
-
-/* Para o caso 0, limita o recebimento da string pelo número de bytes informado */
-
-	  case 0:
-
-	     	for(cont=0;cont < stopnumBytes;cont++){
-
-          	  confirm = -1;
-
-/* Enquanto não recebe o byte, continua no laço de repetição*/
-
-          	  while(confirm == -1){
-
-          		 confirm = apbuart_inbyte(device);
-
-          	  }
-
-/* Adiciona os byte à string pela passagem por referência*/
-
-	         *(strReceive + strlen(strReceive) + 1) = '\0';
-
-	         *(strReceive + strlen(strReceive)) = (char) confirm;
-		}
-
-	     	break;
-
-/* Para o caso 1, limita o recebimento da string pelo stopbyte informado */
-
-	  case 1:
-
-	     	do{
-
-          	  confirm = -1;
-			  
-/* Enquanto não recebe o byte, continua no laço de repetição*/			  
-
-          	  while(confirm == -1){
-				
-			     confirm = apbuart_inbyte(device);
-
-			  }
-
-/* Adiciona o byte à string pela passagem por referência*/
-
-              *(strReceive + strlen(strReceive) + 1) = '\0';
-
-	          *(strReceive + strlen(strReceive)) = (char) confirm;
-
-              cont++;
-
-	        }while(confirm != stopnumBytes);
-
-	     	break;
+		return (0);
 
 	}
 
-/* Aguarda o recebimento da informação -> FIFO e Shift Register vazios */
+    /* Laço de repetição de recebimento de cada caractere*/
+	for(u32Cont = 0; u32Cont < u32StringReceiveLength; u32Cont++){
 
+       /* Pulling para recebimento de um único caractere */
+       do{
 
-        do{
+          i32Confirm = apbuart_inbyte(pxDevice);
 
-          statsRegister = apbuart_get_status(device);
+	   } while(i32Confirm == -1);
+
+       /* Se o caractere for o stopByte passado na função, então para o recebimento de caracteres*/
+	   if((char) i32Confirm == cStopByte){
+
+          break;
+
+	   }
+    
+	   /* Adiciona o caractere recebido à string de recebimento*/
+       *(strStringReceive + strlen(strStringReceive) + 1) = '\0';
+	   *(strStringReceive + strlen(strStringReceive)) = (char) i32Confirm;
+
+	}
+
+    /* Se bWait for setado, aguarda o recebimento de toda a informação antes do término da função */
+    if(bWait){
+
+       do{
+
+          u32StatusRegister = apbuart_get_status(pxDevice);
           
-          statsRegister = statsRegister & mask;
+          u32StatusRegister = u32StatusRegister & U32_UART_RX_FINISHED;
 
-        }while(statsRegister != 0);
-	
+       }while(u32StatusRegister != U32_UART_RX_COMPARE);
 
-	return;    
+	}
+
+    /* Retorna o tamanho da string recebida */
+	return (u32Cont);
 }
 
-void apbtToApbtString(struct apbuart_priv *deviceSend, struct apbuart_priv *deviceRecv, char strSend[MAX_STRING], char strRecv[MAX_STRING]){
+void apbtToApbtString(struct apbuart_priv *deviceSend, struct apbuart_priv *deviceRecv, char strSend[U32_MAX_STRING], char strRecv[U32_MAX_STRING]){
 
 /* Inicializa as variáveis */
 
