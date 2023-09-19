@@ -18,7 +18,10 @@ from SerialSocketLibrary import *
 
 ###################################################################################################################################################################################
 ###################################################################################################################################################################################
-# Definição de funções importantes ao código
+# Definição de funções importantes ao código (junto à definição da variável global fTime)
+
+
+fTime = time.time()
 
 
 def TCPtoSerial(socket,serialComn):
@@ -29,11 +32,17 @@ def TCPtoSerial(socket,serialComn):
 
     while True:
 
+       global fTime
+
        string = strReadSocket(socket)
 
-       print("Mensagem recebida da Porta TCP: '%s'. \n" % string)
+       if string != '':
 
-       writeSerial(serialComn, string)
+          print("Mensagem recebida da Porta TCP: '%s' (Tempo desde a ocorrência: %.2f). \n" % (string,time.time() - fTime))
+
+          fTime = time.time()
+
+          writeSerial(serialComn, string)
 
 
 def SerialToTCP(socket,serialComn):
@@ -44,11 +53,17 @@ def SerialToTCP(socket,serialComn):
 
     while True:
 
+       global fTime
+
        string = strReadSerial("numBytes", serialComn, '', 1)
 
-       print("Mensagem recebida da Porta Serial: '%s'. \n" % string)
+       if string != '':
 
-       writeSocket(socket, string)
+          print("Mensagem recebida da Porta Serial: '%s' (Tempo desde a ocorrência: %.2f). \n" % (string, time.time() - fTime))
+
+          fTime = time.time()
+
+          writeSocket(socket, string)
 
 
 ###################################################################################################################################################################################

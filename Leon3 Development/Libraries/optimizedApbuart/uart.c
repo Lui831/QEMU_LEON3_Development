@@ -2,32 +2,33 @@
 #include <drv/apbuart.h>
 #include <string.h>
 #include "include/uart.h"
+#include <stdbool.h>
 
 /* Mascara para saber que todos os dados foram transmitidos pela UART */
 #define U32_UART_TX_FINISHED_MASK   ((1 << 1) | (1 << 2))
 /* Valor do status da UART (com mascara aplicada) que indica todos os dados foram transmitidos pela UART */
 #define U32_UART_TX_FINISHED_STVAL  6
 
-/* Realiza o envio de uma sequência de caracteres pelo UART */
+/* Realiza o envio de uma sequï¿½ncia de caracteres pelo UART */
 bool bApbuartSendString(struct apbuart_priv *pxDevice, char *strStringToSend, uint32_t u32StringLength, bool bWait)
 {
 
-    /* Inicializa as variáveis */
+    /* Inicializa as variï¿½veis */
     bool bStatus = false;
     char cTxChar = '/0';
     uint32_t u32StringCnt = 0;
 
-    /* Realiza um laço de repetição para envio de todos os caracteres da String */
+    /* Realiza um laï¿½o de repetiï¿½ï¿½o para envio de todos os caracteres da String */
     for (u32StringCnt = 0; u32StringCnt < u32StringLength; u32StringCnt++)
     {
         cTxChar = strStringToSend[u32StringCnt];
-        /* Tenta colocar o character na FIFO de transmissão até conseguir */
+        /* Tenta colocar o character na FIFO de transmissï¿½o atï¿½ conseguir */
         while (!apbuart_outbyte(pxDevice, cTxChar)) {}
     }
 
     if (bWait)
     {
-        /* Aguarda a transmissão de toda a informação -> RX FIFO e Shift Register vazios */
+        /* Aguarda a transmissï¿½o de toda a informaï¿½ï¿½o -> RX FIFO e Shift Register vazios */
         while (U32_UART_TX_FINISHED_STVAL != (apbuart_get_status(pxDevice)& U32_UART_TX_FINISHED_MASK)) {}
     }
 
@@ -36,21 +37,21 @@ bool bApbuartSendString(struct apbuart_priv *pxDevice, char *strStringToSend, ui
     return (bStatus);
 }
 
-/* Realiza o recebimento de uma sequência de caracteres pelo UART */
+/* Realiza o recebimento de uma sequï¿½ncia de caracteres pelo UART */
 uint32_t u32ApbuartReceiveString(struct apbuart_priv *pxDevice, char *strStringToReceive, uint32_t u32StringLength, char cStringEndMarker)
 {
 
-    /* Inicializa as variáveis */
+    /* Inicializa as variï¿½veis */
     int32_t i32RxChar = -1;
     uint32_t u32StringCnt = 0;
 
-    /* Realiza um laço de repetição para recebimento de todos os caracteres da String (garante que o limite de caracteres será respeitado) */
+    /* Realiza um laï¿½o de repetiï¿½ï¿½o para recebimento de todos os caracteres da String (garante que o limite de caracteres serï¿½ respeitado) */
     for (u32StringCnt = 0; u32StringCnt < (u32StringLength - 1); u32StringCnt++)
     {
-        /* Tenta receber o character da FIFO de recepção até conseguir */
-        do
+        /* Tenta receber o character da FIFO de recepï¿½ï¿½o atï¿½ conseguir */
+        do{
             i32RxChar = apbuart_inbyte(pxDevice);
-        while (-1 == i32RxChar);
+        }while (-1 == i32RxChar);
         strStringToReceive[u32StringCnt] = (char)i32RxChar;
         /* Verifica se caracter de fim foi recebido */
         if (cStringEndMarker == (char)i32RxChar)
