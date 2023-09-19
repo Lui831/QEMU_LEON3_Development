@@ -12,7 +12,7 @@ uint32_t u32ApbuartSendString(struct apbuart_priv *pxDevice, char strStringSend[
 
 /* Contabiliza o número de bytes da string */
 
-	u32StrLen = strlen(strStringSend);
+	u32StrLen = 10;
 
 /* Realiza um laço de repetição para envio de byte a byte */
 
@@ -58,9 +58,6 @@ uint32_t u32ApbuartReceiveString(struct apbuart_priv *pxDevice, char strStringRe
 	uint32_t u32Cont = 0, u32StatusRegister;
 	int32_t i32Confirm;
 
-    /* Limpa a string de recebimento */
-    strcpy(strStringReceive,"");
-
     /* Se o tamanho da string a ser recebida for maior que o estipulado pelo código, retorna 0*/
     if(u32StringReceiveLength > U32_MAX_STRING){
 
@@ -78,31 +75,32 @@ uint32_t u32ApbuartReceiveString(struct apbuart_priv *pxDevice, char strStringRe
 
 	   } while(i32Confirm == -1);
 
+	   /* Adiciona o caractere recebido à string de recebimento*/
+       strStringReceive[u32Cont] = (char) i32Confirm;
+
        /* Se o caractere for o stopByte passado na função, então para o recebimento de caracteres*/
 	   if((char) i32Confirm == cStopByte){
 
           break;
 
 	   }
-    
-	   /* Adiciona o caractere recebido à string de recebimento*/
-      *(strStringReceive + strlen(strStringReceive) + 1) = '\0';
-	   *(strStringReceive + strlen(strStringReceive)) = (char) i32Confirm;
 
 	}
 
-    /* Se bWait for setado, aguarda o recebimento de toda a informação antes do término da função */
-    if(bWait){
+	strStringReceive[u32Cont] = '\0';
 
-       do{
-
-          u32StatusRegister = apbuart_get_status(pxDevice);
-          
-          u32StatusRegister = u32StatusRegister & U32_UART_RX_FINISHED;
-
-       }while(u32StatusRegister != U32_UART_RX_COMPARE);
-
-	}
+//    /* Se bWait for setado, aguarda o recebimento de toda a informação antes do término da função */
+//    if(bWait){
+//
+//       do{
+//
+//          u32StatusRegister = apbuart_get_status(pxDevice);
+//
+//          u32StatusRegister = u32StatusRegister & U32_UART_RX_FINISHED;
+//
+//       }while(u32StatusRegister != U32_UART_RX_COMPARE);
+//
+//	}
 
     /* Retorna o tamanho da string recebida */
 	return (u32Cont);

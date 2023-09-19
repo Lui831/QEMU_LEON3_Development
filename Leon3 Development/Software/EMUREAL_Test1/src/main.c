@@ -59,11 +59,11 @@ int main(void){
 
     for(cont = 0; cont < numTest; cont++){
 
-       apbuartReceiveString(device, strReceive, 0, numBytes);
+      apbuartReceiveString(device, strReceive, 0, numBytes);
 
-       CipherCaesar(strReceive, strSend, numOffset);
+      CipherCaesar(strReceive, strSend, numOffset);
 
-	   apbuartSendString(device, strSend);
+	  apbuartSendString(device, strSend);
 
 	}
 

@@ -53,11 +53,12 @@ int main(void){
 	apbuart_config(pxDevice, &pcConfig);
 
     /* Loop de recebimento, transformação e envio de strings */
+
     for(u32Cont = 0; u32Cont < u32NumTest; u32Cont++){
 
        u32StringReceiveLength = u32ApbuartReceiveString(pxDevice, strStringReceive,'!',u32NumBytes,1);
 
-       CipherCaesar(strStringReceive, strStringSend, u32NumOffset);
+       CipherCaesar(strStringReceive, strStringSend, 0);
 
 	   u32Confirm = u32ApbuartSendString(pxDevice, strStringSend, 1);
 

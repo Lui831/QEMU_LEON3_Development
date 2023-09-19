@@ -45,25 +45,31 @@ def TCPtoSerial(socket,serialComn):
           writeSerial(serialComn, string)
 
 
-def SerialToTCP(socket,serialComn):
+def SerialToTCP(socket,serialComn,numBytes):
     # Desc: função que recebe string da porta serial e a envia para porta TCP.
     # Return: (-).
     # Parameters: socket --> Objeto da classe socket que representa a porta TCP conectada.
     #             serialComn --> Objeto da classe serial que representa a porta serial conectada.
 
+    global fTime
+
     while True:
 
-       global fTime
+       string = ""
 
-       string = strReadSerial("numBytes", serialComn, '', 1)
+       while(len(string) != numBytes):
 
-       if string != '':
+          chr = strReadSerial("numBytes", serialComn, '', 1)
 
-          print("Mensagem recebida da Porta Serial: '%s' (Tempo desde a ocorrência: %.2f). \n" % (string, time.time() - fTime))
+          if chr != '':
+             
+             string = string + chr
 
-          fTime = time.time()
+       print("Mensagem recebida da Porta Serial: '%s' (Tempo desde a ocorrência: %.2f). \n" % (string, time.time() - fTime))
 
-          writeSocket(socket, string)
+       fTime = time.time()
+
+       writeSocket(socket, string)
 
 
 ###################################################################################################################################################################################
@@ -74,14 +80,20 @@ print("Bem vindo ao programa TCP&SerialConnection! \n")
 
 # Estabelece conexão com portas TCP e Serial
 
+numBytes = int(input("Digite o número de bytes a serem bufferizados na porta Serial (-1 para não bufferização): "))
+
+print("\n**Conexão com a porta TCP**\n")
+
 socket = serialSocketConnect("socket")
+
+print("\n**Conexão com a porta Serial**\n")
 
 serialComn = serialSocketConnect("serial")
 
 # Configura e starta threads que simulam a conexão entre porta TCP e porta serial
 
 thread1 = threading.Thread(target = TCPtoSerial, args = [socket, serialComn])
-thread2 = threading.Thread(target = SerialToTCP, args = [socket, serialComn])
+thread2 = threading.Thread(target = SerialToTCP, args = [socket, serialComn, numBytes])
 
 thread1.start()
 thread2.start()
