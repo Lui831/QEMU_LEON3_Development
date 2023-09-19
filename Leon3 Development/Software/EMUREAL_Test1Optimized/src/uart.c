@@ -3,12 +3,12 @@
 #include <string.h>
 #include "include/uart.h"
 
-bool bApbuartSendString(struct apbuart_priv *pxDevice, char strStringSend[U32_MAX_STRING], bool bWait){
+uint32_t u32ApbuartSendString(struct apbuart_priv *pxDevice, char strStringSend[U32_MAX_STRING], uint32_t bWait){
 
 /* Inicializa as variáveis */
 
 	uint32_t u32StrLen, u32Cont, u32Confirm, u32StatusRegister, u32Tries = 0;
-    bool bSendTrue;
+    uint32_t u32SendTrue;
 
 /* Contabiliza o número de bytes da string */
 
@@ -24,9 +24,9 @@ bool bApbuartSendString(struct apbuart_priv *pxDevice, char strStringSend[U32_MA
 
           u32Tries++;
 
-		  if(u32Tries == MAX_STRING){
+		  if(u32Tries == U32_MAX_STRING){
 
-             return false;
+             return 0;
 
 		  }
 
@@ -44,15 +44,15 @@ bool bApbuartSendString(struct apbuart_priv *pxDevice, char strStringSend[U32_MA
           
           u32StatusRegister = u32StatusRegister & U32_UART_TX_FINISHED;
 
-        }while(statsRegister != U32_UART_TX_COMPARE);
+        }while(u32StatusRegister != U32_UART_TX_COMPARE);
 
 	}
 
-	return true;
+	return 1;
 }
 
 
-uint32_t u32ApbuartReceiveString(struct apbuart_priv *pxDevice, char strStringReceive[U32_MAX_STRING], char cStopByte, uint32_t u32StringReceiveLength, bool bWait){
+uint32_t u32ApbuartReceiveString(struct apbuart_priv *pxDevice, char strStringReceive[U32_MAX_STRING], char cStopByte, uint32_t u32StringReceiveLength, uint32_t bWait){
 
     /* Inicializa as variáveis */
 	uint32_t u32Cont = 0, u32StatusRegister;
@@ -108,7 +108,7 @@ uint32_t u32ApbuartReceiveString(struct apbuart_priv *pxDevice, char strStringRe
 	return (u32Cont);
 }
 
-void apbtToApbtString(struct apbuart_priv *pxDeviceSend, struct apbuart_priv *pxDeviceReceive, char strStringSend[U32_MAX_STRING], char strStringRecv[U32_MAX_STRING], bool bWait){
+void apbtToApbtString(struct apbuart_priv *pxDeviceSend, struct apbuart_priv *pxDeviceReceive, char strStringSend[U32_MAX_STRING], char strStringReceive[U32_MAX_STRING], uint32_t u32Wait){
 
    /* Inicializa as variáveis */
    uint32_t u32Cont, u32StatusRegister;
@@ -136,7 +136,7 @@ void apbtToApbtString(struct apbuart_priv *pxDeviceSend, struct apbuart_priv *px
    }
 
    /* Se o bWait estiver setado, então aguarda a transmissão e recebimento da string */
-   if(bWait){
+   if(u32Wait){
 
       do{
 

@@ -12,10 +12,7 @@ int iFindChar(char str[MAX_STRING], char chr);
 void CipherCaesar(char str[MAX_STRING], char strTransformed[MAX_STRING], int numOffset);
 
 
-
-
 /* Função main */
-
 
 int main(void){
 
