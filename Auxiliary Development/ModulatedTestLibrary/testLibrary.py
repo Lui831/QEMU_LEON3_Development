@@ -8,6 +8,7 @@
 # Functions: strDataGenerator --> Função de formação de uma massa de dados aleatória em formato de string.
 #            strCipherCaesar --> Função de transformação de uma string a partir da Cifra de César.
 #            oSerialTestMaker --> Função destinada à elaboração e validação de um único teste para uma porta serial.
+#            bTestMaket --> Função destinada ao recebimento, validação e envio de dados
 # Libraries: SerialSocketLibrary (e afins)
 
 # OBS: esta biblioteca baseia-se inteiramente na string characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", a qual deve ser configurada junto 
@@ -60,6 +61,74 @@ def strCipherCaesar(string, numOffset):
       strCipher = strCipher + characters[posChr]
 
    return strCipher
+
+def oTestMaker(iOffset):
+   # Desc: Função destinada unicamente ao recebimento, validação e output de dados (sob a ótica de um teste de comunicação)
+   # Return: (-)
+   # Parameters: iOffset --> Variável determinante no offset da Cifra de César.
+   #             strData (global variable) --> Variável para transferência de dados inter-threads.
+   #             iCntrl (global variable) --> Variável para indicação de ação.
+
+   global iCntrl
+   global strData
+
+   while (iCntrl != -1):
+
+      if iCntrl == 1:
+
+         strTestString = strCipherCaesar(strData, iOffset)
+         iCntrl += 1
+
+      elif iCntrl == 4:
+
+         print("Resultado do Teste -> String esperada: %s, String recebida: %s, Status: %s" % (strTestString, strData, strTestString == strData))
+
+         if strTestString == strData:
+
+            iCntrl = 1
+
+         else:
+
+            iCntrl = -1
+
+def SerialIO(SerialComn):
+   # Desc: Função destinada à comunicação com um dispositivo de caráter serial
+   # Return: (-)
+   # Parameters: SerialComn --> Estrutura responsável pela representação da porta serial conectada
+   #             strData (global variable) --> Variável para transferência de dados inter-threads.
+   #             iCntrl (global variable) --> Variável para indicação de ação.
+
+   global iCntrl
+   global strData
+
+   while(iCntrl != -1):
+
+      if iCntrl == 2:
+
+         # Envio de dados para dispositivo serial
+
+      elif iCntrl == 3:
+
+         # Recebimento de dados de dispositivo serial
+
+
+
+
+      
+
+   
+   
+
+
+
+
+
+def SerialI(SerialComn, iBuffer):
+   # Desc: Função destinada ao interfaceamento da função oTestMaker com IO's do tipo Serial.
+   # Return: String bufferizada recebida pela entrada serial.
+   # Parameters: SerialComn --> Estrutura relacionada à conexão com porta serial.
+   #             iBuffer --> Quantidade de dados a serem 'bufferizados' ().
+
 
 
 def oSerialTestMaker(serialComn, numData, numOffset,cntrl, stopByte):
