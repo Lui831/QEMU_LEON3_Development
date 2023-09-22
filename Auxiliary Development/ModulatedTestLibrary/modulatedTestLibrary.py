@@ -2,14 +2,15 @@
 ##################################################################################################################################################################################
 ##################################################################################################################################################################################
 
-# testLibrary
+# modulatedTestLibrary
 
 # Desc: biblioteca destinada à automação de testes com APBUARTS reais e emuladas.
 # Functions: strDataGenerator --> Função de formação de uma massa de dados aleatória em formato de string.
 #            strCipherCaesar --> Função de transformação de uma string a partir da Cifra de César.
-#            oSerialTestMaker --> Função destinada à elaboração e validação de um único teste para uma porta serial.
-#            bTestMaket --> Função destinada ao recebimento, validação e envio de dados
-# Libraries: SerialSocketLibrary (e afins)
+#            TestMaker --> Função destinada unicamente ao recebimento, validação e output de dados (sob a ótica de um teste de comunicação)
+#            IOWork --> Função relacionada com o envio e recebimento de dados para os testes
+#            oCicleInit --> Função destinada ao início e configuração do ciclo de testes.
+# Libraries: SerialSocketLibrary (e afins), configGlobalVariables
 
 # OBS: esta biblioteca baseia-se inteiramente na string characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", a qual deve ser configurada junto 
 # a outros programas envolvidos no teste.
@@ -63,7 +64,7 @@ def strCipherCaesar(string, numOffset):
 
    return strCipher
 
-def oTestMaker(iOffset, iNumData):
+def TestMaker(iOffset, iNumData):
    # Desc: Função destinada unicamente ao recebimento, validação e output de dados (sob a ótica de um teste de comunicação)
    # Return: (-)
    # Parameters: iOffset --> Variável determinante no offset da Cifra de César.
@@ -102,6 +103,7 @@ def oTestMaker(iOffset, iNumData):
          else:
 
             setStrCntrl("halt")
+            print("\nFinalizando teste....")
 
 def oCicleInit():
    # Desc: Função destinada ao início e configuração do ciclo de testes.
@@ -118,7 +120,7 @@ def oCicleInit():
 
    for iContDev in range(0, iDev):
 
-      strTypeDev = str(input("O primeiro dispositivo comunica-se por meio de uma porta TCP ou serial? (TCP/serial) "))
+      strTypeDev = str(input("O %i° dispositivo comunica-se por meio de uma porta TCP ou serial? (TCP/serial): " % (iContDev + 1)))
 
       if strTypeDev == "TCP":
 
@@ -133,8 +135,8 @@ def oCicleInit():
 
    return (arrayComn)
 
-def SerialIO(ArrayComn, iNumData):
-   # Desc: Array que contém as estruturas de comunicação que representam os
+def IOWork(ArrayComn, iNumData):
+   # Desc: Função relacionada com o envio e recebimento de dados para os testes
    # Return: (-)
    # Parameters: ArrayComn --> Array que contém as estruturas de comunicação dos dispositivos conectados.
    #             strData (global variable) --> Variável para transferência de dados inter-threads.
@@ -153,7 +155,6 @@ def SerialIO(ArrayComn, iNumData):
 
             # Envia a string por meio do socket
             writeSocket(ArrayComn[iComnCont][1], readStrData())
-            print(readStrData())
 
          # Se o dispositivo for do tipo serial
          elif ArrayComn[iComnCont][0] == "Serial":

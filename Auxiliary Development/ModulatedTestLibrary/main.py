@@ -1,4 +1,4 @@
-from testLibrary import *
+from modulatedTestLibrary import *
 import threading
 
 setStrCntrl("start")
@@ -10,8 +10,8 @@ print(ArrayComn)
 
 # Configura threads
 
-threadTest = threading.Thread(target = oTestMaker, args = [1, 5])
-threadIO = threading.Thread(target = SerialIO, args = [ArrayComn, 5])
+threadTest = threading.Thread(target = TestMaker, args = [0, 5])
+threadIO = threading.Thread(target = IOWork, args = [ArrayComn, 5])
 
 threadTest.start()
 threadIO.start()
