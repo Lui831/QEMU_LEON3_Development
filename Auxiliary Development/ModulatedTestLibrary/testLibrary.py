@@ -62,72 +62,98 @@ def strCipherCaesar(string, numOffset):
 
    return strCipher
 
-def oTestMaker(iOffset):
+def oTestMaker(iOffset, iNumData):
    # Desc: Função destinada unicamente ao recebimento, validação e output de dados (sob a ótica de um teste de comunicação)
    # Return: (-)
    # Parameters: iOffset --> Variável determinante no offset da Cifra de César.
+   #             iNumData --> Número de bytes a serem gerados inicialmente.
    #             strData (global variable) --> Variável para transferência de dados inter-threads.
    #             iCntrl (global variable) --> Variável para indicação de ação.
 
-   global iCntrl
+   global strCntrl
    global strData
 
-   while (iCntrl != -1):
+   # Enquanto o bit de control não se encontra em halt
+   while (strCntrl != "halt"):
 
-      if iCntrl == 1:
+      # Para o caso do control em start
+      if strCntrl == "start":
 
-         strTestString = strCipherCaesar(strData, iOffset)
-         iCntrl += 1
+         strData = strDataGenerator(iNumData) # Gera uma string de dados de um determinado tamanho
+         strCntrl = "scan" # Próximo estado de scan
 
-      elif iCntrl == 4:
+      # Para o caso do control em scan
+      elif strCntrl == "scan":
 
+         strTestString = strCipherCaesar(strData, iOffset) # Faz a cifra de César aplicada a uma string anterior
+         strCntrl = "send"
+
+      # Para o caso do control em validate
+      elif strCntrl == "validate":
+
+         # Printa o resultado do teste atual
          print("Resultado do Teste -> String esperada: %s, String recebida: %s, Status: %s" % (strTestString, strData, strTestString == strData))
 
+         # Se a validação ocorrer corretamente, vai para scan
          if strTestString == strData:
 
-            iCntrl = 1
+            strCntrl = "scan"
 
+         # Se a validação não ocorrer corretamente, vai para halt
          else:
 
-            iCntrl = -1
+            strCntrl = "halt"
 
-def SerialIO(SerialComn):
-   # Desc: Função destinada à comunicação com um dispositivo de caráter serial
+def SerialIO(ArrayComn, iNumData):
+   # Desc: Array que contém as estruturas de comunicação que representam os
    # Return: (-)
-   # Parameters: SerialComn --> Estrutura responsável pela representação da porta serial conectada
+   # Parameters: ArrayComn --> Array que contém as estruturas de comunicação dos dispositivos conectados.
    #             strData (global variable) --> Variável para transferência de dados inter-threads.
    #             iCntrl (global variable) --> Variável para indicação de ação.
 
-   global iCntrl
+   global strCntrl
    global strData
 
-   while(iCntrl != -1):
-
-      if iCntrl == 2:
-
-         # Envio de dados para dispositivo serial
-
-      elif iCntrl == 3:
-
-         # Recebimento de dados de dispositivo serial
-
-
-
-
-      
-
+   iComnCont = 0
    
-   
+   # Enquanto o bit de control não se encontra em halt
+   while(strCntrl != "halt"):
+
+      # Para o caso de control em send
+      if strCntrl == "send":
+
+         # Se o dispositivo for do tipo TCP
+         if ArrayComn[iComnCont][0] == "TCP":
+
+            # Envia a string por meio do socket
+            writeSocket(ArrayComn[iComnCont][1], strData)
+
+         # Se o dispositivo for do tipo serial
+         elif ArrayComn[iComnCont][0] == "Serial":
+
+            # Envia a string por meio da serial
+            writeSerial(ArrayComn[iComnCont][1], strData)
+
+         # 
+         strCntrl = "receive"
 
 
+      elif strCntrl == "receive":
+
+         if ArrayComn[iComnCont][0] == "TCP":
+
+            strData = strReadSocket(ArrayComn[iComnCont][1])
+
+         elif ArrayComn[iComnCont][0] == "Serial":
+
+            strData = strReadSerial("numBytes", ArrayComn[iComnCont][1], '', iNumData)
+
+         iComnCont = (iComnCont + 1) % len(ArrayComn)
+         strCntrl = "validate"
+         
+            
 
 
-
-def SerialI(SerialComn, iBuffer):
-   # Desc: Função destinada ao interfaceamento da função oTestMaker com IO's do tipo Serial.
-   # Return: String bufferizada recebida pela entrada serial.
-   # Parameters: SerialComn --> Estrutura relacionada à conexão com porta serial.
-   #             iBuffer --> Quantidade de dados a serem 'bufferizados' ().
 
 
 

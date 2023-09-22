@@ -10,9 +10,12 @@ int main(void){
 /* 	Declaração das variáveis principais */
 
 	struct apbuart_priv *device1, *device2;
-	struct apbuart_config cfg1, cfg2, cfg3;
+	struct apbuart_config cfg1, cfg2;
 	char strSend[MAX_STRING], strReceive[MAX_STRING];
-	int numTest = 25, numBytes = 50, cont;
+
+	uint32_t u32NumTest = 25;
+    uint32_t u32NumBytes = 50;
+	uint32_t u32Cont;
 
 /* Inicialização dos drivers da APBUART e inicialização da APBUART 0 */
 
@@ -52,7 +55,7 @@ int main(void){
 
     for(cont = 0; cont < numTest; cont++){
 
-       apbuartReceiveString(device1, strReceive, 0, 50);
+       apbuartReceiveString(device1, strReceive, 0, u32NumBytes);
 	   strcpy(strSend, strReceive);
 
 	   apbuartSendString(device2, strSend);
