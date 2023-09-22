@@ -157,9 +157,7 @@ def strReadSerial(cntrl, serialComn, stopByte, numBytes):
 
    elif cntrl == "numBytes":
 
-      for i in range(0,numBytes):
-
-         string = string + serialComn.read().decode("utf-8")
+         string = string + serialComn.read(numBytes).decode("utf-8")
 
    return string
 
