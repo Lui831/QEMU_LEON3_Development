@@ -43,8 +43,6 @@ def strDataGenerator(numData):
       
       string = string + characters[randint(0,sizeCharacters - 1)]
 
-   string = string + '!' # Adição do caractere de stopbyte
-
    return string
 
 
@@ -84,6 +82,7 @@ def TestMaker(iOffset, iNumData):
       if readStrCntrl() == "start":
 
          setStrData(strDataGenerator(iNumData)) # Gera uma string de dados de um determinado tamanho
+         print("Iniciando testes...")
          setStrCntrl("scan") # Próximo estado de scan
 
       # Para o caso do control em scan
@@ -158,13 +157,13 @@ def IOWork(ArrayComn, iNumData):
          if ArrayComn[iComnCont][0] == "TCP":
 
             # Envia a string por meio do socket
-            writeSocket(ArrayComn[iComnCont][1], readStrData())
+            writeSocket(ArrayComn[iComnCont][1], readStrData() + '!')
 
          # Se o dispositivo for do tipo serial
          elif ArrayComn[iComnCont][0] == "Serial":
 
             # Envia a string por meio da serial
-            writeSerial(ArrayComn[iComnCont][1], readStrData())
+            writeSerial(ArrayComn[iComnCont][1], readStrData() + '!')
 
          # Passa para o estado de receive
          setStrCntrl("receive")
@@ -177,7 +176,6 @@ def IOWork(ArrayComn, iNumData):
 
             # Recebe a string por meio do socket
             setStrData(strReadSocket(ArrayComn[iComnCont][1]))
-            print(readStrData())
 
          # Se o dispositivo for do tipo serial
          elif ArrayComn[iComnCont][0] == "Serial":
