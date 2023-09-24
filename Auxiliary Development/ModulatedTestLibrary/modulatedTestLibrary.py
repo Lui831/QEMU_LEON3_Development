@@ -43,6 +43,8 @@ def strDataGenerator(numData):
       
       string = string + characters[randint(0,sizeCharacters - 1)]
 
+   string = string + '!' # Adição do caractere de stopbyte
+
    return string
 
 
@@ -58,9 +60,11 @@ def strCipherCaesar(string, numOffset):
 
    for chr in string:
 
-      posChr = characters.find(chr)
-      posChr = (posChr + numOffset) % (len(characters))
-      strCipher = strCipher + characters[posChr]
+      if chr != "!":
+
+         posChr = characters.find(chr)
+         posChr = (posChr + numOffset) % (len(characters))
+         strCipher = strCipher + characters[posChr]
 
    return strCipher
 
