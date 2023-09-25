@@ -2,6 +2,7 @@
 
 strCntrl = ""
 strData = ""
+iTime = 0
 
 # Funções de leitura e mudança das variáveis globais
 
@@ -28,3 +29,15 @@ def setStrData(string):
    global strData
 
    strData = string
+
+def setITime(time):
+
+   global iTime
+
+   iTime = time
+
+def readITime():
+
+   global iTime
+
+   return iTime

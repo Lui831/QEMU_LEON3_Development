@@ -95,7 +95,7 @@ def TestMaker(iOffset, iNumData):
       elif readStrCntrl() == "validate":
 
          # Printa o resultado do teste atual
-         print("Resultado do Teste -> String esperada: %s, String recebida: %s, Status: %s" % (strTestString, readStrData(), strTestString == readStrData()))
+         print("Resultado do Teste -> String esperada: %s, String recebida: %s, Status: %s, Tempo de processamento: %.2f [s]" % (strTestString, readStrData(), strTestString == readStrData(), readITime()))
 
          # Se a validação ocorrer corretamente, vai para scan
          if strTestString == readStrData():
@@ -153,17 +153,20 @@ def IOWork(ArrayComn, iNumData):
       # Para o caso de control em send
       if readStrCntrl() == "send":
 
+         # Grava time stamp
+         setITime(time.time())
+
          # Se o dispositivo for do tipo TCP
          if ArrayComn[iComnCont][0] == "TCP":
 
-            # Envia a string por meio do socket
-            writeSocket(ArrayComn[iComnCont][1], readStrData() + '!')
+            # Envia a string por meio do socket e grava timestamp
+            writeSocket(ArrayComn[iComnCont][1], readStrData())
 
          # Se o dispositivo for do tipo serial
          elif ArrayComn[iComnCont][0] == "Serial":
 
             # Envia a string por meio da serial
-            writeSerial(ArrayComn[iComnCont][1], readStrData() + '!')
+            writeSerial(ArrayComn[iComnCont][1], readStrData())
 
          # Passa para o estado de receive
          setStrCntrl("receive")
@@ -183,6 +186,7 @@ def IOWork(ArrayComn, iNumData):
             # Recebe a string por meio da serial
             setStrData(strReadSerial("numBytes", ArrayComn[iComnCont][1], '', iNumData))
 
+         setITime(time.time() - readITime()) # Grava variação das time stamps na variável global iTime
          iComnCont = (iComnCont + 1) % len(ArrayComn) # Aumenta o contador do dispositivo
          setStrCntrl("validate") # Passa para o estado de validate
 
