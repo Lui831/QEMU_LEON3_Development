@@ -6,7 +6,7 @@ uint32_t u32ApbuartSendString(struct apbuart_priv *pxDevice, char strStringSend[
 
 /* Inicializa as variáveis */
 
-	uint32_t u32StrLen, u32Cont, u32Confirm, u32StatusRegister;
+   uint32_t u32StrLen, u32Cont, u32Confirm, u32StatusRegister;
    uint32_t u32Tries = 0;
    uint32_t u32SendTrue;
 
