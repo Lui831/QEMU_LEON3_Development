@@ -4,8 +4,8 @@
 #define U32_MAX_STRING 300
 #define U32_MAX_DEVICE 6
 
-#define U32_DR_MASK 1
-#define U32_DR_COMPARE 1
+#define U32_DR_MASK (0b111111 << 26)
+#define U32_DR_COMPARE 0
 
 void apbuartSendString(struct apbuart_priv *device, char strSend[U32_MAX_STRING]);
 /* Função para enviar uma string pelo canal serial */

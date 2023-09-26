@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <drv/apbuart.h>
 #include "include/uart.h"
+#include <string.h>
 
 void apbuartSendString(struct apbuart_priv *device, char strSend[U32_MAX_STRING]){
 
@@ -38,6 +39,8 @@ void apbuartReceiveString(struct apbuart_priv *device, char strReceive[U32_MAX_S
 	uint32_t cont = 0, statsRegister;
 	int32_t confirm;
     const uint32_t mask = (0b111111 << 26);
+
+    strcpy(strReceive, "");
 
 /* Dita a maneira de recebimento da string a partir da variável 'control' */
 

@@ -101,16 +101,9 @@
 	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
 		<project id="teste_veritas_2.cdt.managedbuild.target.gnu.cross.exe.913406778" name="Executable" projectType="cdt.managedbuild.target.gnu.cross.exe"/>
 	</storageModule>
-	<storageModule moduleId="scannerConfiguration">
-		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
-		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.cross.exe.release.1770589424;cdt.managedbuild.config.gnu.cross.exe.release.1770589424.;cdt.managedbuild.tool.gnu.cross.c.compiler.881464807;cdt.managedbuild.tool.gnu.c.compiler.input.492244890">
-			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
-		</scannerConfigBuildInfo>
-		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.cross.exe.debug.985043795;cdt.managedbuild.config.gnu.cross.exe.debug.985043795.;cdt.managedbuild.tool.gnu.cross.c.compiler.105609884;cdt.managedbuild.tool.gnu.c.compiler.input.325943814">
-			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
-		</scannerConfigBuildInfo>
-	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
 	<storageModule moduleId="refreshScope"/>
 	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
+	<storageModule moduleId="scannerConfiguration"/>
+	<storageModule moduleId="org.eclipse.cdt.core.pathentry"/>
 </cproject>

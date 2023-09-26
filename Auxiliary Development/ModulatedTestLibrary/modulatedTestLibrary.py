@@ -160,13 +160,13 @@ def IOWork(ArrayComn, iNumData):
          if ArrayComn[iComnCont][0] == "TCP":
 
             # Envia a string por meio do socket e grava timestamp
-            writeSocket(ArrayComn[iComnCont][1], readStrData())
+            writeSocket(ArrayComn[iComnCont][1], readStrData() + '!')
 
          # Se o dispositivo for do tipo serial
          elif ArrayComn[iComnCont][0] == "Serial":
 
             # Envia a string por meio da serial
-            writeSerial(ArrayComn[iComnCont][1], readStrData())
+            writeSerial(ArrayComn[iComnCont][1], readStrData() + '!')
 
          # Passa para o estado de receive
          setStrCntrl("receive")
