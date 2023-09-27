@@ -114,6 +114,7 @@ def oCicleInit():
    # Parameters: (-)
 
    arrayComn = []
+   oConfig = {}
 
    print("Bem vindo ao programa de testes cíclicos de comunicações seriais ou TCP! \n")
 
@@ -135,6 +136,11 @@ def oCicleInit():
 
          serialComn = serialSocketConnect("serial")
          arrayComn.append(["Serial", serialComn])
+
+   oConfig["iNumTest"] = int(input("\n Digite quantos ciclos desejam ser realizados: "))
+   oConfig["iNumOffset"] = int(input("\n Qual o offset a ser utilizado na transformação: "))
+   oConfig["iNumData"] = int(input("\n Quantos bytes de dados serão transferidos na comunicação: "))
+
 
    return (arrayComn)
 

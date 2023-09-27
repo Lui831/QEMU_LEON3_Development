@@ -3,6 +3,7 @@
 strCntrl = ""
 strData = ""
 iTime = 0
+oConfig = {"iNumTest" : 0, "iNumOffset" : 0, "iNumData": 0}
 
 # Funções de leitura e mudança das variáveis globais
 
@@ -41,3 +42,18 @@ def readITime():
    global iTime
 
    return iTime
+
+def readOConfig():
+
+   global oConfig
+
+   return oConfig
+
+def setOConfig(dicionario):
+
+   global oConfig
+
+   oConfig = dicionario
+
+
+

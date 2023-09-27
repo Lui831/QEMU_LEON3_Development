@@ -12,7 +12,7 @@ uint32_t u32ApbuartSendString(struct apbuart_priv *pxDevice, char strStringSend[
 
 /* Contabiliza o número de bytes da string */
 
-	u32StrLen = 10;
+	u32StrLen = strlen(strStringSend);
 
 /* Realiza um laço de repetição para envio de byte a byte */
 
@@ -87,7 +87,6 @@ uint32_t u32ApbuartReceiveString(struct apbuart_priv *pxDevice, char strStringRe
 
 	}
 
-	strStringReceive[u32Cont] = '\0';
 
 //    /* Se bWait for setado, aguarda o recebimento de toda a informação antes do término da função */
 //    if(bWait){

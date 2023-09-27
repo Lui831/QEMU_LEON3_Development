@@ -68,7 +68,7 @@ def serialSocketConnect(cntrl):
       
          serialComn = serial.Serial()
 
-         serialComn.baudrate = 9600
+         serialComn.baudrate = 115200
 
          serialComn.port = listStrPort[int(select_port)][:5]
 

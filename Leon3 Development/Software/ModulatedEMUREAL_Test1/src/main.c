@@ -36,7 +36,7 @@ int main(void){
 
     for(u32Cont = 0; u32Cont < U32_MAX_DEVICE; u32Cont++){
 
-	oConfigs[u32Cont].baud = 9600; /* Baud rate configurado para cada uma das APBUARTs */
+	oConfigs[u32Cont].baud = 115200; /* Baud rate configurado para cada uma das APBUARTs */
 	oConfigs[u32Cont].parity = APBUART_PAR_NONE; /* Desativa paridade */
 	oConfigs[u32Cont].flow = 0; /* Desativa controle de fluxo */
 	oConfigs[u32Cont].mode = APBUART_MODE_NONINT; /* Non blocking mode */
