@@ -1,0 +1,6 @@
+./qemu-system-sparc \
+-M leon3_generic -m 64M \
+-nographic -no-reboot \
+-serial tcp:localhost:4322, server = on, wait = on \
+-serial tcp:localhost:4321, server = on, wait = on \
+-kernel D:/PRJ_VERITAS/workspace/teste_veritas_2/Debug/teste_veritas_2 \
