@@ -2,11 +2,13 @@
 
 strCntrl = ""
 strData = ""
+strLog = "id,strCommunication,strOperation,strExpected,strReceived,fTime,iOffset,iNumData,bResult\n"
 iTime = 0
 iContTest = 0
 oConfig = {"iNumTest" : 0, "iNumOffset" : 0, "iNumData": 0}
 
 # Funções de leitura e mudança das variáveis globais
+
 
 def readStrCntrl():
    
@@ -20,6 +22,8 @@ def setStrCntrl(string):
 
    strCntrl = string
 
+
+
 def readStrData():
 
    global strData
@@ -31,6 +35,8 @@ def setStrData(string):
    global strData
 
    strData = string
+
+
 
 def setITime(time):
 
@@ -44,6 +50,8 @@ def readITime():
 
    return iTime
 
+
+
 def readOConfig():
 
    global oConfig
@@ -56,6 +64,8 @@ def setOConfig(dicionario):
 
    oConfig = dicionario
 
+
+
 def setIContTest(cont):
 
    global iContTest
@@ -67,6 +77,20 @@ def readIContTest():
    global iContTest
 
    return iContTest
+
+
+
+def readStrLog():
+
+   global strLog
+
+   return strLog
+
+def appendStrLog(line):
+
+   global strLog
+
+   strLog = strLog + line
 
 
 

@@ -169,16 +169,9 @@ def strReadSocket(socket, iNumData):
 
    string = ""
 
-   while(1):
+   while(len(string) < iNumData):
 
       string = string + socket.recv(1024).decode("utf-8")
-
-      if len(string) >= iNumData:
-
-         string = string[0 : iNumData]
-
-         break
-
 
 
    return string

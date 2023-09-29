@@ -30,3 +30,13 @@ thread2 = threading.Thread(target = TestMaker)
 
 thread1.start()
 thread2.start()
+
+while(1):
+
+    if(readStrCntrl() == "halt"):
+
+       file = open("meutexto.txt", "w")
+       file.write(readStrLog())
+       break
+
+

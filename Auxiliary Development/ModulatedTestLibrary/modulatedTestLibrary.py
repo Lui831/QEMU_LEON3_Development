@@ -94,8 +94,10 @@ def TestMaker():
       # Para o caso do control em validate
       elif readStrCntrl() == "validate":
 
-         # Printa o resultado do teste atual
+         # Printa o resultado do teste atual e armazena na string de log
          print("Resultado do Teste -> String esperada: %s, String recebida: %s, Status: %s, Tempo de processamento: %.2f [s]" % (strTestString, readStrData(), strTestString == readStrData(), readITime()))
+         info = ["RX/TX", strTestString, readStrData(),str(readITime()), str(readOConfig()["iNumOffset"]), str(readOConfig()["iNumData"]), str(strTestString == readStrData())]
+         appendStrLog(",".join(info) + "\n")
 
          # Se a validação ocorrer corretamente, vai para scan
          if strTestString == readStrData() and readIContTest() <= readOConfig()["iNumTest"]:
@@ -162,6 +164,10 @@ def IOWork(ArrayComn):
 
       # Para o caso de control em send
       if readStrCntrl() == "send":
+
+         # Começa gravação de novo item no log
+         info = [str(readIContTest()), ArrayComn[iComnCont][0] + str(iComnCont)]
+         appendStrLog(",".join(info) + ",")
 
          # Grava time stamp
          setITime(time.time())
