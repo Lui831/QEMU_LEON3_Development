@@ -66,7 +66,7 @@ def strCipherCaesar(string, numOffset):
 
    return strCipher
 
-def TestMaker(iOffset, iNumData):
+def TestMaker():
    # Desc: Função destinada unicamente ao recebimento, validação e output de dados (sob a ótica de um teste de comunicação)
    # Return: (-)
    # Parameters: iOffset --> Variável determinante no offset da Cifra de César.
@@ -81,14 +81,14 @@ def TestMaker(iOffset, iNumData):
       # Para o caso do control em start
       if readStrCntrl() == "start":
 
-         setStrData(strDataGenerator(iNumData)) # Gera uma string de dados de um determinado tamanho
-         print("Iniciando testes...")
+         setStrData(strDataGenerator(readOConfig()["iNumData"])) # Gera uma string de dados de um determinado tamanho
+         print("\nIniciando testes...\n")
          setStrCntrl("scan") # Próximo estado de scan
 
       # Para o caso do control em scan
       elif readStrCntrl() == "scan":
 
-         strTestString = strCipherCaesar(readStrData(), iOffset) # Faz a cifra de César aplicada a uma string anterior
+         strTestString = strCipherCaesar(readStrData(), readOConfig()["iNumOffset"]) # Faz a cifra de César aplicada a uma string anterior
          setStrCntrl("send")
 
       # Para o caso do control em validate
@@ -98,8 +98,8 @@ def TestMaker(iOffset, iNumData):
          print("Resultado do Teste -> String esperada: %s, String recebida: %s, Status: %s, Tempo de processamento: %.2f [s]" % (strTestString, readStrData(), strTestString == readStrData(), readITime()))
 
          # Se a validação ocorrer corretamente, vai para scan
-         if strTestString == readStrData():
-
+         if strTestString == readStrData() and readIContTest() <= readOConfig()["iNumTest"]:
+            setIContTest(readIContTest() + 1)
             setStrCntrl("scan")
 
          # Se a validação não ocorrer corretamente, vai para halt
@@ -107,6 +107,8 @@ def TestMaker(iOffset, iNumData):
 
             setStrCntrl("halt")
             print("\nFinalizando teste....")
+
+         
 
 def oCicleInit():
    # Desc: Função destinada ao início e configuração do ciclo de testes.
@@ -137,14 +139,16 @@ def oCicleInit():
          serialComn = serialSocketConnect("serial")
          arrayComn.append(["Serial", serialComn])
 
-   oConfig["iNumTest"] = int(input("\n Digite quantos ciclos desejam ser realizados: "))
-   oConfig["iNumOffset"] = int(input("\n Qual o offset a ser utilizado na transformação: "))
-   oConfig["iNumData"] = int(input("\n Quantos bytes de dados serão transferidos na comunicação: "))
+   oConfig["iNumTest"] = int(input("\nDigite quantos ciclos desejam ser realizados: ")) - 2
+   oConfig["iNumOffset"] = int(input("Qual o offset a ser utilizado na transformação: "))
+   oConfig["iNumData"] = int(input("Quantos bytes de dados serão transferidos na comunicação: "))
+
+   setOConfig(oConfig)
 
 
    return (arrayComn)
 
-def IOWork(ArrayComn, iNumData):
+def IOWork(ArrayComn):
    # Desc: Função relacionada com o envio e recebimento de dados para os testes
    # Return: (-)
    # Parameters: ArrayComn --> Array que contém as estruturas de comunicação dos dispositivos conectados.
@@ -184,13 +188,13 @@ def IOWork(ArrayComn, iNumData):
          if ArrayComn[iComnCont][0] == "TCP":
 
             # Recebe a string por meio do socket
-            setStrData(strReadSocket(ArrayComn[iComnCont][1]))
+            setStrData(strReadSocket(ArrayComn[iComnCont][1], readOConfig()["iNumData"]))
 
          # Se o dispositivo for do tipo serial
          elif ArrayComn[iComnCont][0] == "Serial":
 
             # Recebe a string por meio da serial
-            setStrData(strReadSerial("numBytes", ArrayComn[iComnCont][1], '', iNumData))
+            setStrData(strReadSerial("numBytes", ArrayComn[iComnCont][1], '', readOConfig()["iNumData"]))
 
          setITime(time.time() - readITime()) # Grava variação das time stamps na variável global iTime
          iComnCont = (iComnCont + 1) % len(ArrayComn) # Aumenta o contador do dispositivo

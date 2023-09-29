@@ -45,7 +45,7 @@ int main(void){
 
     /* Configurações da APBUART */
 
-	pcConfig.baud = 9600;
+	pcConfig.baud = 115200;
 	pcConfig.parity = APBUART_PAR_NONE;
 	pcConfig.flow = 0;
 	pcConfig.mode = APBUART_MODE_NONINT;

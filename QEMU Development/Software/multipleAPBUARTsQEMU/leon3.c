@@ -52,8 +52,8 @@
 
 #define LEON3_UART0_OFFSET  (0x80000100)
 #define LEON3_UART0_IRQ     (3)
-#define LEON3_UART1_OFFSET  (0x800FF000) /* Adição da APBUART1 na região de APB PNP 1 */
-#define LEON3_UART1_IRQ     (7) /* Valor de interrupção selecionado aleatoriamente */
+#define LEON3_UART1_OFFSET  (0x800FF100) /* Adição da APBUART1 na região de APB PNP 1 */
+#define LEON3_UART1_IRQ     (14) /* Valor de interrupção selecionado aleatoriamente */
 
 #define LEON3_IRQMP_OFFSET (0x80000200)
 
@@ -383,12 +383,14 @@ static void leon3_generic_hw_init(MachineState *machine)
     dev = qdev_new(TYPE_GRLIB_APB_UART);
     qdev_prop_set_chr(dev, "chrdev", serial_hd(1));
     sysbus_realize_and_unref(SYS_BUS_DEVICE(dev), &error_fatal);
-    sysbus_mmio_map(SYS_BUS_DEVICE(dev), 0, LEON3_UART0_OFFSET);
+    sysbus_mmio_map(SYS_BUS_DEVICE(dev), 0, LEON3_UART1_OFFSET);
     sysbus_connect_irq(SYS_BUS_DEVICE(dev), 0,
-                       qdev_get_gpio_in(irqmpdev, LEON3_UART0_IRQ));
-    grlib_apb_pnp_add_entry(apb_pnp, LEON3_UART0_OFFSET, 0xFFF,
+                       qdev_get_gpio_in(irqmpdev, LEON3_UART1_IRQ));
+    grlib_apb_pnp_add_entry(apb_pnp, LEON3_UART1_OFFSET, 0xFFF,
                             GRLIB_VENDOR_GAISLER, GRLIB_APBUART_DEV, 1,
-                            LEON3_UART0_IRQ, GRLIB_APBIO_AREA);
+                            LEON3_UART1_IRQ, GRLIB_APBIO_AREA);
+
+
 }
 
 static void leon3_generic_machine_init(MachineClass *mc)

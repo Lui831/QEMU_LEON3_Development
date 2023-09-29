@@ -14,6 +14,7 @@
 
 from modulatedTestLibrary import *
 import threading
+from configGlobalVariables import *
 
 
 ##################################################################################################################################################################################
@@ -24,8 +25,8 @@ setStrCntrl("start")
 
 ArrayComn = oCicleInit()
 
-thread1 = threading.Thread(target = IOWork, args = [ArrayComn, 20])
-thread2 = threading.Thread(target = TestMaker, args = [1, 20])
+thread1 = threading.Thread(target = IOWork, args = [ArrayComn])
+thread2 = threading.Thread(target = TestMaker)
 
 thread1.start()
 thread2.start()

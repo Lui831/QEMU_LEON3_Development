@@ -162,12 +162,24 @@ def strReadSerial(cntrl, serialComn, stopByte, numBytes):
    return string
 
 
-def strReadSocket(socket):
+def strReadSocket(socket, iNumData):
    # Desc: Função utilizada para receber uma string por meio de uma porta TCP.
    # Return: String a ser recebida.
    # Parameters: socket --> Objeto da classe serial representando uma porta serial conectada.
 
-   string = socket.recv(1024).decode("utf-8")
+   string = ""
+
+   while(1):
+
+      string = string + socket.recv(1024).decode("utf-8")
+
+      if len(string) >= iNumData:
+
+         string = string[0 : iNumData]
+
+         break
+
+
 
    return string
 
