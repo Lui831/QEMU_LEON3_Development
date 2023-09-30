@@ -95,20 +95,26 @@ def TestMaker():
       elif readStrCntrl() == "validate":
 
          # Printa o resultado do teste atual e armazena na string de log
-         print("Resultado do Teste -> String esperada: %s, String recebida: %s, Status: %s, Tempo de processamento: %.2f [s]" % (strTestString, readStrData(), strTestString == readStrData(), readITime()))
-         info = ["RX/TX", strTestString, readStrData(),str(readITime()), str(readOConfig()["iNumOffset"]), str(readOConfig()["iNumData"]), str(strTestString == readStrData())]
-         appendStrLog(",".join(info) + "\n")
+         print("Resultado do Teste -> String esperada: %s, String recebida: %s, Status: %s, Tempo de processamento: %.2f [s]" % (strTestString, readStrData(), strTestString == readStrData(), time.time() - readITime()))
+         info = ["RX", readStrData(),str(time.time() - readITime()), str(readOConfig()["iNumOffset"]), str(readOConfig()["iNumData"]), str(strTestString == readStrData())]
+         appendOFile(",".join(info) + "\n")
 
-         # Se a validação ocorrer corretamente, vai para scan
-         if strTestString == readStrData() and readIContTest() <= readOConfig()["iNumTest"]:
+         # Se o número de testes ainda estiver no limite, vai para scan
+         if readIContTest() <= readOConfig()["iNumTest"]:
             setIContTest(readIContTest() + 1)
             setStrCntrl("scan")
 
-         # Se a validação não ocorrer corretamente, vai para halt
+         # Se não, vai para halt
          else:
 
             setStrCntrl("halt")
             print("\nFinalizando teste....")
+
+         # Se a string recebida for diferente da esperada, continua com a esperada
+
+         if strTestString != readStrData():
+
+            setStrData(strTestString)
 
          
 
@@ -122,10 +128,12 @@ def oCicleInit():
 
    print("Bem vindo ao programa de testes cíclicos de comunicações seriais ou TCP! \n")
 
-   iDev = int(input("Quantos dispositivos de comunicação deseja testar simulteneamente: "))
+   # Armazena quantidade de dispositivos a serem testados
+   iDev = int(input("Quantos dispositivos de comunicação deseja testar simultaneamente: "))
 
    print("\nPara preencher os dispositivos, coloque-os na ordem a serem testados.\n")
 
+   # Ciclo de preenchimento para cada dispositivo
    for iContDev in range(0, iDev):
 
       strTypeDev = str(input("O %i° dispositivo comunica-se por meio de uma porta TCP ou serial? (TCP/serial): " % (iContDev + 1)))
@@ -141,12 +149,20 @@ def oCicleInit():
          serialComn = serialSocketConnect("serial")
          arrayComn.append(["Serial", serialComn])
 
-   oConfig["iNumTest"] = int(input("\nDigite quantos ciclos desejam ser realizados: ")) - 2
+   # Configurações gerais do teste com base nos inputs do usuário
+   oConfig["iNumTest"] = int(input("Digite quantos ciclos desejam ser realizados: ")) - 2
    oConfig["iNumOffset"] = int(input("Qual o offset a ser utilizado na transformação: "))
    oConfig["iNumData"] = int(input("Quantos bytes de dados serão transferidos na comunicação: "))
 
    setOConfig(oConfig)
 
+   # Geração do arquivo .csv de output do teste
+   initOFile()
+
+   # Gravação do tempo de início dos testes
+
+   setITime(time.time())
+   
 
    return (arrayComn)
 
@@ -165,12 +181,10 @@ def IOWork(ArrayComn):
       # Para o caso de control em send
       if readStrCntrl() == "send":
 
-         # Começa gravação de novo item no log
-         info = [str(readIContTest()), ArrayComn[iComnCont][0] + str(iComnCont)]
-         appendStrLog(",".join(info) + ",")
+         # Grava um item no log, de TX
+         info = [str(readIContTest()*2), ArrayComn[iComnCont][0] + str(iComnCont), "TX", readStrData(), str(time.time() - readITime()), str(readOConfig()["iNumOffset"]), str(readOConfig()["iNumData"]), ""]
+         appendOFile(",".join(info) + "\n")
 
-         # Grava time stamp
-         setITime(time.time())
 
          # Se o dispositivo for do tipo TCP
          if ArrayComn[iComnCont][0] == "TCP":
@@ -190,6 +204,10 @@ def IOWork(ArrayComn):
       # Para o caso de control em receive
       elif readStrCntrl() == "receive":
 
+         # Começa gravação de novo item no log, de RX
+         info = [str(readIContTest()*2 + 1), ArrayComn[iComnCont][0] + str(iComnCont)]
+         appendOFile(",".join(info) + ",")
+
          # Se o dispositivo for do tipo TCP
          if ArrayComn[iComnCont][0] == "TCP":
 
@@ -202,7 +220,6 @@ def IOWork(ArrayComn):
             # Recebe a string por meio da serial
             setStrData(strReadSerial("numBytes", ArrayComn[iComnCont][1], '', readOConfig()["iNumData"]))
 
-         setITime(time.time() - readITime()) # Grava variação das time stamps na variável global iTime
          iComnCont = (iComnCont + 1) % len(ArrayComn) # Aumenta o contador do dispositivo
          setStrCntrl("validate") # Passa para o estado de validate
 

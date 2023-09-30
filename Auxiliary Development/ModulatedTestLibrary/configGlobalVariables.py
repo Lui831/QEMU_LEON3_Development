@@ -2,10 +2,10 @@
 
 strCntrl = ""
 strData = ""
-strLog = "id,strCommunication,strOperation,strExpected,strReceived,fTime,iOffset,iNumData,bResult\n"
-iTime = 0
 iContTest = 0
+iTime = 0
 oConfig = {"iNumTest" : 0, "iNumOffset" : 0, "iNumData": 0}
+oFile = 0
 
 # Funções de leitura e mudança das variáveis globais
 
@@ -80,17 +80,30 @@ def readIContTest():
 
 
 
-def readStrLog():
+def initOFile():
 
-   global strLog
+    global oFile
 
-   return strLog
+    oFile = open("textLog.txt", "w")
+    oFile.write("id,strCommunication,strOperation,strData,fTime,iOffset,iNumData,bResult\n")
 
-def appendStrLog(line):
+    return oFile
 
-   global strLog
+def appendOFile(string):
 
-   strLog = strLog + line
+    global oFile
+
+    oFile.write(string)
+
+def closeOFile():
+
+   global oFile
+
+   oFile.close()
+
+
+
+
 
 
 
