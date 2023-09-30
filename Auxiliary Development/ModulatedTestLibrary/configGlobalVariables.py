@@ -84,7 +84,7 @@ def initOFile():
 
     global oFile
 
-    oFile = open("textLog.txt", "w")
+    oFile = open("textLog.csv", "w")
     oFile.write("id,strCommunication,strOperation,strData,fTime,iOffset,iNumData,bResult\n")
 
     return oFile

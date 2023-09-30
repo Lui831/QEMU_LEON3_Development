@@ -109,6 +109,7 @@ def TestMaker():
 
             setStrCntrl("halt")
             print("\nFinalizando teste....")
+            closeOFile()
 
          # Se a string recebida for diferente da esperada, continua com a esperada
 
