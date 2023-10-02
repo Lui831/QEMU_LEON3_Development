@@ -77,10 +77,9 @@ def addDeltaT(oDb,oDbCur):
    for iCont in range(0, len(fTimeDelta)):
        
        oDbCur.execute("UPDATE testAnalysis SET DeltaT = '%f' WHERE id = '%i'" % (fTimeDelta[iCont], iCont))
+       print(iCont)
 
    oDb.commit()
-   
-   print(fTimeDelta)
 
     
 

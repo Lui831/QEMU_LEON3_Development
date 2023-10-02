@@ -1,5 +1,5 @@
 from testAnalysisLibrary import *
 
-(oDb, oDbCur) = csvToDb("log.txt")
+(oDb, oDbCur) = csvToDb("textLog.csv")
 
 addDeltaT(oDb,oDbCur)
