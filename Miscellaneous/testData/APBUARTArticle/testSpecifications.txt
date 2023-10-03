@@ -1,0 +1,54 @@
+# testSpecifications - Especificações dos testes realizados e análises feitas
+
+## Descrição dos testes
+
+1000 Testes para 1 APBUART em GR712RC
+- Offset utilizado: 1
+- Bytes enviados/recebidos: 100
+- Baudrate: 115200
+
+
+1000 Testes para 2 APBUARTs em GR712RC
+- Offset utilizado: 1
+- Bytes enviados/recebidos: 100
+- Baudrate: 115200
+
+
+1000 Testes para 1 APBUART em QEMU
+- Offset utilizado: 1
+- Bytes enviados/recebidos: 100
+- Baudrate: 115200
+
+
+1000 Testes para 2 APBUARTs em QEMU
+- Offset utilizado: 1
+- Bytes enviados/recebidos: 100
+- Baudrate: 115200
+
+
+1000 Testes para 1 APBUART em GR712RC e 1 APBUART em QEMU
+- Offset utilizado: 1
+- Bytes enviados/recebidos: 100
+- Baudrate: 115200
+
+
+1000 Testes para 2 APBUARTs em GR712RC e 2 APBUARTs em QEMU
+- Offset utilizado: 1
+- Bytes enviados/recebidos: 100
+- Baudrate: 115200
+
+## Análises estatísticas dos testes
+
+Para verificar média (AVG) e desvio padrão (DESV) para cada componente, segundo o tempo de recebimento (tempo de recebimento do dado pelo dispositivo, processamento e envio do dado processado), inserir a seguinte query:
+
+'
+SELECT strcommunication, SUM(DeltaT)/Count(id) as AVG, (SUM(POWER(DeltaT,2)) - POWER(SUM(DeltaT),2)/Count(id))/(COUNT(id) - 1) as VAR from testAnalysis
+WHERE stroperation='RX'
+GROUP BY strcommunication
+'
+
+## Conclusões adicionais
+
+- Foi possível perceber que, em todos os testes realizados, não houveram erros na transmissão, recebimento e transformação dos dados por parte dos dispositivos, garantindo a validação do caráter emulacional lógico do QEMU.
+
+
