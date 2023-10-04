@@ -18,7 +18,7 @@ int main(void){
 	char strSend[U32_MAX_STRING], strReceive[U32_MAX_STRING];
 	
     uint32_t numTest = 1000; /*DIGITE O NÚMERO DE TESTES*/
-	uint32_t numOffset = 1; /*DIGITE O OFFSET UTILIZADO NA CIFRA DE CÉSAR*/
+	uint32_t numOffset = 23; /*DIGITE O OFFSET UTILIZADO NA CIFRA DE CÉSAR*/
 	uint32_t u32Cont;
 	uint32_t status;
 
