@@ -52,10 +52,11 @@ int main(void){
     while(1){
 
        /* Se, para a UART em questão, DR estiver pronto, então continue */
-
+       status = apbuart_get_status(oDevices[u32Cont]);
 
        if(apbuart_get_status(oDevices[u32Cont]) & U32_DR_MASK != U32_DR_COMPARE){
 
+    	   status = apbuart_get_status(oDevices[u32Cont]);
           /* Recebe string, delimitada pelo caractere de exclamação. Transforma string utilizando a cifra de César. */
           apbuartReceiveString(oDevices[u32Cont], strReceive, 1, 0x21);
 		  CipherCaesar(strReceive, strSend, numOffset);
