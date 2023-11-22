@@ -1,9 +1,6 @@
 /* Inclusão de bibliotecas */
 
 #include <stdio.h>
-#include <drv/apbuart.h>
-#include "include/uart.h"
-#include <string.h>
 
 
 
@@ -11,13 +8,18 @@
 
 int main(void){
 
- uint32_t u32Size = 5;
- uint32_t u32MATRIX[1000][1000];
- uint32_t u32Conti,u32Contj,MCFG1value;
- uint32_t* MCFG1;
+/* Definição de algum ponteiro para a região da memória da ahbram definida */
+uint32_t *u32pont1 = 0xA0000000;
+uint32_t *u32pont2 = 0xA0000004;
 
-MCFG1 = 0x80000F00;
-*(MCFG1) = 0x00000180;
+
+/* Input de algum valor arbitrário naquele endereço de memória */
+*(u32pont1) = 0xF;
+*(u32pont2) = 0xA;
+
+*(u32pont1) = *(u32pont2);
+
+/* Debuggando, pode-se verificar se o valor foi capaz de ser armazenado ou não */
 
 return 1;
 
