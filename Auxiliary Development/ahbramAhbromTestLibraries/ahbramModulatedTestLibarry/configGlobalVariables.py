@@ -4,7 +4,7 @@ strCntrl = ""
 strData = ""
 iContTest = 0
 iTime = 0
-oConfig = {"iNumTest" : 0, "iNumData": 0, "iNumSize": 0, "iAddrOffset": 0}
+oConfig = {"iNumTest" : 0, "iNumData": 0, "iNumSize": 0, "iNumOffset": 0}
 oFile = 0
 
 # Funções de leitura e mudança das variáveis globais

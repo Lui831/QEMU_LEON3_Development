@@ -48,15 +48,13 @@ def oCicleInit():
 
    print("Bem vindo ao programa de testes cíclicos de ahbrams! \n")
 
-   # Armazena quantidade de dispositivos a serem testados
-   iDev = int(input("Quantas ahbrams deseja testar simultaneamente: "))
-
-   print("\nPara preencher os dispositivos de comunicação, coloque-os na ordem a serem testados.\n")
+   # Testerá-se somente uma ahbram por vez
+   iDev = 1
 
    # Ciclo de preenchimento para cada dispositivo
    for iContDev in range(0, iDev):
 
-      strTypeDev = str(input("O %i° dispositivo comunica-se por meio de uma porta TCP ou serial? (TCP/serial): " % (iContDev + 1)))
+      strTypeDev = str(input("O dispositivo comunica-se por meio de uma porta TCP ou serial? (TCP/serial): "))
 
       if strTypeDev == "TCP":
 
@@ -70,10 +68,11 @@ def oCicleInit():
          arrayComn.append(["Serial", serialComn])
 
    # Configurações gerais do teste com base nos inputs do usuário
-   oConfig["iNumTest"] = int(input("Digite quantos ciclos desejam ser realizados: ")) - 2
-   oConfig["iNumOffset"] = int(input("Qual o offset de início de implementação da ahbram (em decimal): ")
-   oConfig["iNumSize"] = int(input("Qual o tamanho (em bits, decimal) da ahbram: ")
+
+   oConfig["iNumOffset"] = int(input("Qual o offset de início de implementação da ahbram (em decimal): "))
+   oConfig["iNumSize"] = int(input("Qual o tamanho (em bytes, decimal) da ahbram: "))
    oConfig["iNumData"] = int(input("Quantos bytes de dados serão transferidos na comunicação: "))
+   oConfig["iNumTest"] = (oConfig["iNumSize"] / oConfig["iNumData"] - 2) * iDev 
 
    setOConfig(oConfig)
 
@@ -84,11 +83,12 @@ def oCicleInit():
 
    setITime(time.time())
    
-
+   print("\nIniciando o ciclo de testes.....\n")
+   
    return (arrayComn)
 
 
-   def IOWork(ArrayComn):
+def IOWork(ArrayComn):
    # Desc: Função relacionada com o envio e recebimento de dados para os testes
    # Return: (-)
    # Parameters: ArrayComn --> Array que contém as estruturas de comunicação dos dispositivos conectados.
@@ -112,13 +112,13 @@ def oCicleInit():
          if ArrayComn[iComnCont][0] == "TCP":
 
             # Envia a string por meio do socket e grava timestamp
-            writeSocket(ArrayComn[iComnCont][1], str() + "_" + readStrData() + '!')
+            writeSocket(ArrayComn[iComnCont][1], readStrData())
 
          # Se o dispositivo for do tipo serial
          elif ArrayComn[iComnCont][0] == "Serial":
 
             # Envia a string por meio da serial
-            writeSerial(ArrayComn[iComnCont][1], readStrData() + '!')
+            writeSerial(ArrayComn[iComnCont][1], readStrData())
 
          # Passa para o estado de receive
          setStrCntrl("receive")
@@ -158,16 +158,10 @@ def TestMaker():
    # Enquanto o bit de control não se encontra em halt
    while (readStrCntrl() != "halt"):
 
-      # Para o caso do control em start
-      if readStrCntrl() == "start":
-
-         setStrData(strDataGenerator(readOConfig()["iNumData"])) # Gera uma string de dados de um determinado tamanho
-         print("\nIniciando testes...\n")
-         setStrCntrl("scan") # Próximo estado de scan
-
       # Para o caso do control em scan
-      elif readStrCntrl() == "scan":
+      if readStrCntrl() == "scan":
 
+         setStrData(str(readIContTest() + readOConfig()["iNumOffset"]) + "!" + strDataGenerator(readOConfig()["iNumData"]) + "!") # Cria uma string aleatória nova
          strTestString = readStrData(); # Lê a string de dados anterior;
          setStrCntrl("send")
 
